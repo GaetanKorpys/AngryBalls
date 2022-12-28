@@ -1,0 +1,73 @@
+package exodecorateur_angryballs.maladroit.modele.Catch;
+
+import exodecorateur_angryballs.maladroit.modele.Bille;
+import exodecorateur_angryballs.maladroit.modele.DecoratorBille;
+import exodecorateur_angryballs.maladroit.modele.State.CatchableController;
+import exodecorateur_angryballs.maladroit.modele.State.CaughtController;
+import exodecorateur_angryballs.maladroit.modele.State.ControllerOK;
+
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.Vector;
+
+
+public class BillePilote extends DecoratorBille implements MouseListener {
+
+    ControllerOK controleurCourant;
+    CatchableController controleurAttrapable;
+    CaughtController controleurAttrapee;
+    MouseEvent e;
+
+    public BillePilote(Bille bille) {
+        super(bille);
+        genererGrapheControleurs();
+    }
+
+    public void setControleurCourant(ControllerOK controleurCourant) {
+        this.controleurCourant = controleurCourant;
+    }
+
+    private void genererGrapheControleurs() {
+        this.controleurAttrapable = new CatchableController(this, null, null);
+        this.controleurAttrapee = new CaughtController(this, this.controleurAttrapable, this.controleurAttrapable);
+        this.controleurAttrapable.setPrevious(this.controleurAttrapee);
+        this.controleurAttrapable.setNext(this.controleurAttrapee);
+        this.controleurCourant = this.controleurAttrapable;
+    }
+
+    public void dessine(Graphics g) {
+        _decoredBille.dessine(g);
+        controleurCourant.dessine(this,g);
+    }
+
+    public void gestionAccélération(Vector<Bille> billes) {
+        _decoredBille.gestionAccélération(billes);
+        controleurCourant.gestionAccélération(this,billes,e);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        System.out.println("\nClicked");
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        System.out.println("\nPressed");
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        System.out.println("\nRelease");
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        System.out.println("\nEnter");
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        System.out.println("\nLeave");
+    }
+}
