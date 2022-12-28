@@ -1,6 +1,8 @@
 package exodecorateur_angryballs.maladroit.vues;
 
 
+import java.awt.*;
+
 /**
  * contrat respecté par toute vue capable de dessiner la liste des billes
  * 
@@ -20,4 +22,6 @@ public double hauteurBillard();
 public void miseAJour();
 
 public void montrer();
+
+public GraphicsDevice getGraphicsDevice();
 }

@@ -2,6 +2,8 @@ package exodecorateur_angryballs.maladroit;
 
 import java.awt.*;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.util.Vector;
@@ -75,10 +77,19 @@ public class TestAngryBalls
         //---------------- création de la vue responsable du dessin des billes -------------------------
 
 
-        GraphicsDevice myDevice;
+        int choixHurlementInitial = 0;
+        CadreAngryBalls cadre = new CadreAngryBalls("Angry balls Gaetan Korpys", "Animation de billes ayant des comportements différents. Situation idéale pour mettre en place le DP Decorator", billes,hurlements, choixHurlementInitial);
+
+
         DisplayMode oldDisplayMode, newDisplayMode;
 
-        myDevice = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+
+        // Get graphics configuration...
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice myDevice = ge.getDefaultScreenDevice();
+        GraphicsConfiguration gc = myDevice.getDefaultConfiguration();
+
+        //Get old display
         oldDisplayMode = myDevice.getDisplayMode();
 
         int w,h,r,b;
@@ -87,27 +98,27 @@ public class TestAngryBalls
         r = oldDisplayMode.getRefreshRate();
         b = oldDisplayMode.getBitDepth();
 
-        newDisplayMode = findDisplayMode(myDevice);
+        //Create new display
+        newDisplayMode = new DisplayMode(w,h,32,DisplayMode.REFRESH_RATE_UNKNOWN);
 
-        int choixHurlementInitial = 0;
-        CadreAngryBalls cadre = new CadreAngryBalls("Angry balls Gaetan Korpys", "Animation de billes ayant des comportements différents. Situation idéale pour mettre en place le DP Decorator", billes,hurlements, choixHurlementInitial);
 
         System.out.println("\nnew"+newDisplayMode);
         System.out.println("\nold"+oldDisplayMode);
 
+        //Change to full screen
         if (myDevice.isFullScreenSupported())
             try {
                 myDevice.setFullScreenWindow(cadre);
-                /*if(newDisplayMode != null)
-                    myDevice.setDisplayMode(newDisplayMode);
-                else
-                    myDevice.setDisplayMode(oldDisplayMode);*/
+                /*if(myDevice.isDisplayChangeSupported())
+                    myDevice.setDisplayMode(newDisplayMode);*/
             } catch (Exception e) {
                 e.printStackTrace();
                 myDevice.setFullScreenWindow(null);
             }
 
+        cadre.setGraphics(myDevice);
         cadre.montrer(); // on rend visible la vue
+
         //------------- remplissage de la liste avec 5 billes -------------------------------
 
 
@@ -205,6 +216,7 @@ public class TestAngryBalls
 
         cadre.addChoixHurlementListener((ItemListener) HurlanteNewtonArret);
         //cadre.addMouseListener((MouseListener) Attrapable);
+        cadre.addKeyListener(cadre);
 
         //---------------------- ici finit la partie à changer -------------------------------------------------------------
 

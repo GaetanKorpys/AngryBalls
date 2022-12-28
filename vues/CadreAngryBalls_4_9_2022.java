@@ -78,6 +78,9 @@ public void montrer()
 this.setVisible(true);
 }
 
-
+    @Override
+    public GraphicsDevice getGraphicsDevice() {
+        return null;
+    }
 
 }

@@ -19,7 +19,7 @@ public class AnimationBilles  implements Runnable
     Vector<Bille> billes;   // la liste de toutes les billes en mouvement
     VueBillard vueBillard;    // la vue responsable du dessin des billes
     private Thread thread;    // pour lancer et arrêter les billes
-    private BilleSonCollision sonCollision;
+    public static boolean running;
 
 
     private static final double COEFF = 0.5;
@@ -33,49 +33,49 @@ public class AnimationBilles  implements Runnable
         this.billes = billes;
         this.vueBillard = vueBillard;
         this.thread = null;     //est-ce utile ?
+        running = true;
     }
 
     @Override
     public void run()
     {
-    try
-    {
-        double deltaT;  // délai entre 2 mises à jour de la liste des billes
-        Bille billeCourante;
+        try
+        {
+            double deltaT;  // délai entre 2 mises à jour de la liste des billes
+            Bille billeCourante;
 
-        double minRayons = AnimationBilles.minRayons(billes);   //nécessaire au calcul de deltaT
-        double minRayons2 = minRayons*minRayons;                //nécessaire au calcul de deltaT
+            double minRayons = AnimationBilles.minRayons(billes);   //nécessaire au calcul de deltaT
+            double minRayons2 = minRayons*minRayons;                //nécessaire au calcul de deltaT
 
-        while (!Thread.interrupted())                           // gestion du mouvement
+            while (running)                           // gestion du mouvement
             {
-            //deltaT = COEFF*minRayons2/(1+maxVitessesCarrées(billes));       // mise à jour deltaT. L'addition + 1 est une astuce pour éviter les divisions par zéro
+                //deltaT = COEFF*minRayons2/(1+maxVitessesCarrées(billes));       // mise à jour deltaT. L'addition + 1 est une astuce pour éviter les divisions par zéro
 
-                                                                            //System.err.println("deltaT = " + deltaT);
-            deltaT = 10;
+                                                                                //System.err.println("deltaT = " + deltaT);
+                deltaT = 10;
 
-            int i;
-            for ( i = 0; i < billes.size(); ++i)    // mise à jour de la liste des billes
-                {
-                    billeCourante = billes.get(i);
-                    billeCourante.déplacer(deltaT);                 // mise à jour position et vitesse de cette bille
-                    billeCourante.gestionAccélération(billes);      // calcul de l'accélération subie par cette bille
-                    billeCourante.gestionCollisionBilleBille(billes);
-                    billeCourante.collisionContour( 0, 0, vueBillard.largeurBillard(), vueBillard.hauteurBillard());
+                int i;
+                for ( i = 0; i < billes.size(); ++i)    // mise à jour de la liste des billes
+                    {
+                        billeCourante = billes.get(i);
+                        billeCourante.déplacer(deltaT);                 // mise à jour position et vitesse de cette bille
+                        billeCourante.gestionAccélération(billes);      // calcul de l'accélération subie par cette bille
+                        billeCourante.gestionCollisionBilleBille(billes);
+                        billeCourante.collisionContour( 0, 0, vueBillard.largeurBillard(), vueBillard.hauteurBillard());
 
-                }
+                    }
 
-            vueBillard.miseAJour();                                // on prévient la vue qu'il faut redessiner les billes
-
-
-            Thread.sleep((int)deltaT);                          // deltaT peut être considéré comme le délai entre 2 flashes d'un stroboscope qui éclairerait la scène
+                vueBillard.miseAJour();                                // on prévient la vue qu'il faut redessiner les billes
+                Thread.sleep((int)deltaT);                          // deltaT peut être considéré comme le délai entre 2 flashes d'un stroboscope qui éclairerait la scène
             }
+            vueBillard.getGraphicsDevice().setFullScreenWindow(null);
+            System.exit(0);
         }
 
-    catch (InterruptedException e)
+        catch (InterruptedException e)
         {
         /* arrêt normal, il n'y a rien à faire dans ce cas */
         }
-
     }
 
     /**
