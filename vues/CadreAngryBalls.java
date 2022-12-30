@@ -1,10 +1,7 @@
 package exodecorateur_angryballs.maladroit.vues;
 
 import java.awt.*;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.util.Vector;
 
 import exodecorateur_angryballs.maladroit.AnimationBilles;
@@ -31,6 +28,7 @@ public class CadreAngryBalls extends Frame implements VueBillard, KeyListener
     PanneauChoixHurlement ligneBoutonsChoixHurlement;
     EcouteurTerminaison ecouteurTerminaison;
     GraphicsDevice graphicsDevice;
+    AnimationBilles animationBilles;
 
     public CadreAngryBalls(String titre, String message, Vector<Bille> billes, SonLong [] hurlements, int choixHurlementInitial) throws HeadlessException
     {
@@ -122,22 +120,30 @@ public class CadreAngryBalls extends Frame implements VueBillard, KeyListener
 
     public GraphicsDevice getGraphicsDevice(){return graphicsDevice;}
 
-    @Override
-    public void keyTyped(KeyEvent e) {
+    public void setAnimationBilles (AnimationBilles animationBilles){this.animationBilles = animationBilles;}
 
-    }
+    @Override
+    public void addMouseListener(MouseListener mouseListener){billard.addMouseListener(mouseListener);}
+
+    @Override
+    public void addMouseMotionListener(MouseMotionListener mouseMotionListener){billard.addMouseMotionListener(mouseMotionListener);}
 
     @Override
     public void keyPressed(KeyEvent e) {
         if( e.getKeyCode() == KeyEvent.VK_ESCAPE )
         {
-            AnimationBilles.running = false;
-            System.out.println("\nQUIT");
+            if(animationBilles != null)
+                animationBilles.quitter();
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+        //Todo
+    }
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+        //Todo
     }
 }

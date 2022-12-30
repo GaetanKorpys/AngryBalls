@@ -15,10 +15,11 @@ public class MouseEventPressed extends MouseEventExpertCOR {
 
     @Override
     public boolean reconnaitEvent(MouseEvent e, ControllerOK controleur) {
-        if (e.getID() == MouseEvent.MOUSE_PRESSED) {
+        if (e.getID() == MouseEvent.MOUSE_DRAGGED) {
             MouseEventExpertCOR.positionSourisPressed = new Vecteur(e.getX(), e.getY());
             if (this.getBille().pointIsInsideBille(MouseEventExpertCOR.positionSourisPressed)) {
                 this.getBille().setControleurCourant(controleur.getNext());
+                System.out.println("----> Caught");
             }
 
             return true;

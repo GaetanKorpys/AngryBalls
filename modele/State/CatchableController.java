@@ -17,9 +17,13 @@ public class CatchableController extends ControllerOK {
     }
 
     @Override
-    public void dessine(Bille g, Graphics x) {}
+    public void dessine(Bille g, Graphics x) {
+        //System.out.println("Ne dessine rien");
+    }
 
     @Override
-    public void gestionAccélération(Bille g, Vector<Bille> billes, MouseEvent e) {}
+    public void gestionAccélération(Bille g, Vector<Bille> billes, MouseEvent e) {
+        //System.out.println("Pas d'accel");
+    }
 
 }

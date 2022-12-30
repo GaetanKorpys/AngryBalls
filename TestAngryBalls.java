@@ -1,14 +1,14 @@
 package exodecorateur_angryballs.maladroit;
 
 import java.awt.*;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.io.File;
 import java.util.Vector;
 import java.awt.GraphicsDevice;
 
+import exodecorateur_angryballs.maladroit.Ecouteur.EcouteurBoutonArreter;
+import exodecorateur_angryballs.maladroit.Ecouteur.EcouteurBoutonLancer;
+import exodecorateur_angryballs.maladroit.Ecouteur.EcouteurBoutonQuitter;
 import exodecorateur_angryballs.maladroit.modele.*;
 import exodecorateur_angryballs.maladroit.modele.Acceleration.BilleFrottement;
 import exodecorateur_angryballs.maladroit.modele.Acceleration.BilleMRU;
@@ -33,28 +33,6 @@ import exodecorateur_angryballs.maladroit.vues.CadreAngryBalls;
 public class TestAngryBalls
 {
 
-    /**
-     * Finds a display mode that is different from the current display
-     * mode and is likely to cause a display change event.
-     */
-    private static DisplayMode findDisplayMode(GraphicsDevice gd) {
-        DisplayMode dms[] = gd.getDisplayModes();
-        DisplayMode currentDM = gd.getDisplayMode();
-        for (DisplayMode dm : dms) {
-            if (!dm.equals(currentDM) && dm.getRefreshRate() == currentDM.getRefreshRate())
-            {
-                // different from the current dm and refresh rate is the same
-                // means that something else is different => more likely to
-                // cause a DM change event
-                return dm;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * @param args
-     */
     public static void main(String[] args)
     {
         //---------------------- gestion des bruitages : paramétrage du chemin du dossier contenant les fichiers audio --------------------------
@@ -184,12 +162,12 @@ public class TestAngryBalls
         MRUPasseMuraille = new BillePasseMuraille(MRUPasseMuraille);
         MRUPasseMuraille = new BilleSonCollision(MRUPasseMuraille, hurlements);
 
-        /*
-        Attrapable = new BilleParDefaut(p4, rayon,Color.orange, cadre);
+
+        Attrapable = new BilleParDefaut(p4, rayon,v4,Color.orange, cadre);
         Attrapable = new BilleRebond(Attrapable);
         Attrapable = new BillePilote(Attrapable);
 
-
+        /*
         Fantome = new BilleParDefaut(p5, rayon,Color.gray, cadre);
         Fantome = new BilleMRU(Fantome, v5);
         Fantome = new BilleRebond(Fantome);
@@ -202,20 +180,21 @@ public class TestAngryBalls
 
         Division = new BilleParDefaut(p7, rayon, Color.PINK, cadre);
         Division = new BilleDivision(Division);
-        */
+
 
         billes.add(HurlanteNewtonArret);
         billes.add(NewtonFrottementRebond);
         billes.add(PesanteurFrottementRebond);
         billes.add(MRURebond);
-        billes.add(MRUPasseMuraille);
+        billes.add(MRUPasseMuraille);*/
         //billes.add(Fantome);
         //billes.add(Fusion);
         //billes.add(Division);
-        //billes.add(Attrapable);
+        billes.add(Attrapable);
 
         cadre.addChoixHurlementListener((ItemListener) HurlanteNewtonArret);
-        //cadre.addMouseListener((MouseListener) Attrapable);
+        cadre.addMouseListener((MouseListener) Attrapable);
+        cadre.addMouseMotionListener((MouseMotionListener) Attrapable);
         cadre.addKeyListener(cadre);
 
         //---------------------- ici finit la partie à changer -------------------------------------------------------------
@@ -229,13 +208,15 @@ public class TestAngryBalls
 
         //----------------------- mise en place des écouteurs de boutons qui permettent de contrôler (un peu...) l'application -----------------
 
-        EcouteurBoutonLancer écouteurBoutonLancer = new EcouteurBoutonLancer(animationBilles);
-        EcouteurBoutonArreter écouteurBoutonArrêter = new EcouteurBoutonArreter(animationBilles);
+        EcouteurBoutonLancer ecouteurBoutonLancer = new EcouteurBoutonLancer(animationBilles);
+        EcouteurBoutonArreter ecouteurBoutonArrêter = new EcouteurBoutonArreter(animationBilles);
+        EcouteurBoutonQuitter ecouteurBoutonQuitter = new EcouteurBoutonQuitter(animationBilles);
 
         //------------------------- activation des écouteurs des boutons et ça tourne tout seul ------------------------------
 
 
-        cadre.lancerBilles.addActionListener(écouteurBoutonLancer);             // pourrait être remplacé par Observable - Observer
-        cadre.arrêterBilles.addActionListener(écouteurBoutonArrêter);           // pourrait être remplacé par Observable - Observer
+        cadre.lancerBilles.addActionListener(ecouteurBoutonLancer);             // pourrait être remplacé par Observable - Observer
+        cadre.arrêterBilles.addActionListener(ecouteurBoutonArrêter);           // pourrait être remplacé par Observable - Observer
+        cadre.quitter.addActionListener(ecouteurBoutonQuitter);
     }
 }

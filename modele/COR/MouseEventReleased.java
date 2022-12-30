@@ -17,6 +17,7 @@ public class MouseEventReleased extends MouseEventExpertCOR {
     public boolean reconnaitEvent(MouseEvent e, ControllerOK controleur) {
         if (e.getID() == MouseEvent.MOUSE_RELEASED) {
             this.bille.setControleurCourant(controleur.getNext());
+            System.out.println("----> Catchable");
             return true;
         }
         return false;

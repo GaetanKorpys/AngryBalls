@@ -3,6 +3,7 @@ package exodecorateur_angryballs.maladroit.vues;
 import java.awt.*;
 import java.util.Vector;
 
+import exodecorateur_angryballs.maladroit.AnimationBilles;
 import exodecorateur_angryballs.maladroit.modele.Bille;
 
 
@@ -81,6 +82,11 @@ this.setVisible(true);
     @Override
     public GraphicsDevice getGraphicsDevice() {
         return null;
+    }
+
+    @Override
+    public void setAnimationBilles(AnimationBilles animationBilles) {
+        //Todo
     }
 
 }

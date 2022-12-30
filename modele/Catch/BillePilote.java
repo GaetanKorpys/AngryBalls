@@ -6,13 +6,15 @@ import exodecorateur_angryballs.maladroit.modele.State.CatchableController;
 import exodecorateur_angryballs.maladroit.modele.State.CaughtController;
 import exodecorateur_angryballs.maladroit.modele.State.ControllerOK;
 
+import javax.swing.event.MouseInputListener;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Vector;
 
 
-public class BillePilote extends DecoratorBille implements MouseListener {
+public class BillePilote extends DecoratorBille implements MouseInputListener {
 
     ControllerOK controleurCourant;
     CatchableController controleurAttrapable;
@@ -36,6 +38,11 @@ public class BillePilote extends DecoratorBille implements MouseListener {
         this.controleurCourant = this.controleurAttrapable;
     }
 
+    public void handleMouseEvent(MouseEvent e) {
+        this.e =e;
+        this.controleurCourant.handleMouseEvent(e);
+    }
+
     public void dessine(Graphics g) {
         _decoredBille.dessine(g);
         controleurCourant.dessine(this,g);
@@ -46,28 +53,35 @@ public class BillePilote extends DecoratorBille implements MouseListener {
         controleurCourant.gestionAccélération(this,billes,e);
     }
 
+
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("\nClicked");
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        System.out.println("\nPressed");
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        System.out.println("\nRelease");
+        handleMouseEvent(e);
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        System.out.println("\nEnter");
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        System.out.println("\nLeave");
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        handleMouseEvent(e);
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        //System.out.println("\nMOVED");
     }
 }

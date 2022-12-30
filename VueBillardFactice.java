@@ -40,4 +40,9 @@ public class VueBillardFactice implements VueBillard
         return null;
     }
 
+    @Override
+    public void setAnimationBilles(AnimationBilles animationBilles) {
+        //Todo
+    }
+
 }

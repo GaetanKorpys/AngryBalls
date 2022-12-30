@@ -34,6 +34,8 @@ public class AnimationBilles  implements Runnable
         this.vueBillard = vueBillard;
         this.thread = null;     //est-ce utile ?
         running = true;
+
+        this.vueBillard.setAnimationBilles(this);
     }
 
     @Override
@@ -68,8 +70,7 @@ public class AnimationBilles  implements Runnable
                 vueBillard.miseAJour();                                // on prévient la vue qu'il faut redessiner les billes
                 Thread.sleep((int)deltaT);                          // deltaT peut être considéré comme le délai entre 2 flashes d'un stroboscope qui éclairerait la scène
             }
-            vueBillard.getGraphicsDevice().setFullScreenWindow(null);
-            System.exit(0);
+
         }
 
         catch (InterruptedException e)
@@ -132,5 +133,11 @@ public class AnimationBilles  implements Runnable
         this.thread.interrupt();
         this.thread = null;
         }
+    }
+
+    public void quitter() {
+        running = false;
+        vueBillard.getGraphicsDevice().setFullScreenWindow(null);
+        System.exit(0);
     }
 }
