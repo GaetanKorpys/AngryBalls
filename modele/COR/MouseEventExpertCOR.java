@@ -1,6 +1,6 @@
 package exodecorateur_angryballs.maladroit.modele.COR;
 
-import exodecorateur_angryballs.maladroit.modele.Catch.BillePilote;
+import exodecorateur_angryballs.maladroit.modele.Decorateur.BillePilote;
 import exodecorateur_angryballs.maladroit.modele.State.ControllerOK;
 import mesmaths.geometrie.base.Vecteur;
 

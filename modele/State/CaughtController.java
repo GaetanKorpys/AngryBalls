@@ -2,7 +2,7 @@ package exodecorateur_angryballs.maladroit.modele.State;
 
 import exodecorateur_angryballs.maladroit.modele.Bille;
 import exodecorateur_angryballs.maladroit.modele.COR.MouseEventReleased;
-import exodecorateur_angryballs.maladroit.modele.Catch.BillePilote;
+import exodecorateur_angryballs.maladroit.modele.Decorateur.BillePilote;
 import mesmaths.geometrie.base.Vecteur;
 import mesmaths.mecanique.MecaniquePoint;
 

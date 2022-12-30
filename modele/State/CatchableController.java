@@ -3,7 +3,7 @@ package exodecorateur_angryballs.maladroit.modele.State;
 
 import exodecorateur_angryballs.maladroit.modele.Bille;
 import exodecorateur_angryballs.maladroit.modele.COR.MouseEventPressed;
-import exodecorateur_angryballs.maladroit.modele.Catch.BillePilote;
+import exodecorateur_angryballs.maladroit.modele.Decorateur.BillePilote;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;

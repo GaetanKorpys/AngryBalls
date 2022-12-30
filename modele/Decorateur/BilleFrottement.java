@@ -1,4 +1,4 @@
-package exodecorateur_angryballs.maladroit.modele.Acceleration;
+package exodecorateur_angryballs.maladroit.modele.Decorateur;
 
 import exodecorateur_angryballs.maladroit.modele.Bille;
 import exodecorateur_angryballs.maladroit.modele.DecoratorBille;

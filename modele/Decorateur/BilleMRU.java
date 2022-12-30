@@ -1,23 +1,23 @@
-package exodecorateur_angryballs.maladroit.modele.Acceleration;
+package exodecorateur_angryballs.maladroit.modele.Decorateur;
 
 import exodecorateur_angryballs.maladroit.modele.Bille;
 import exodecorateur_angryballs.maladroit.modele.DecoratorBille;
 import mesmaths.geometrie.base.Vecteur;
-import mesmaths.mecanique.MecaniquePoint;
 
 import java.util.Vector;
 
-public class BillePesanteur extends DecoratorBille {
-    private Vecteur pesanteur;
+public class BilleMRU extends DecoratorBille {
 
-    public BillePesanteur(Bille bille, Vecteur pesanteur) {
+    public Vecteur vitesse;
+
+    public BilleMRU(Bille bille, Vecteur vitesse) {
         super(bille);
-        this.pesanteur = pesanteur;
+        this.vitesse=vitesse;
     }
 
     @Override
     public void gestionAccélération(Vector<Bille> billes) {
         _decoredBille.gestionAccélération(billes);
-        this.getAccélération().ajoute(this.pesanteur);
+        this.setVitesse(this.vitesse);
     }
 }

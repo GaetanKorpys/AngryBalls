@@ -1,16 +1,12 @@
-package exodecorateur_angryballs.maladroit.modele.CollisionBille;
+package exodecorateur_angryballs.maladroit.modele.Decorateur;
 
-import exodecorateur_angryballs.maladroit.modele.Acceleration.BilleMRU;
 import exodecorateur_angryballs.maladroit.modele.Bille;
-import exodecorateur_angryballs.maladroit.modele.BilleParDefaut;
-import exodecorateur_angryballs.maladroit.modele.CollisionParoi.BilleRebond;
 import exodecorateur_angryballs.maladroit.modele.DecoratorBille;
 import exodecorateur_angryballs.maladroit.modele.OutilsBille;
 import mesmaths.cinematique.Collisions;
 import mesmaths.geometrie.base.Vecteur;
 
 import java.awt.*;
-import java.util.LinkedList;
 import java.util.Vector;
 
 public class BilleDivision extends DecoratorBille {
