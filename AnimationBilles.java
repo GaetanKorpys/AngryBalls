@@ -2,8 +2,8 @@ package exodecorateur_angryballs.maladroit;
 
 import java.util.Vector;
 
-import exodecorateur_angryballs.maladroit.modele.Bille;
-import exodecorateur_angryballs.maladroit.vues.VueBillard;
+import exodecorateur_angryballs.maladroit.Modele.Bille;
+import exodecorateur_angryballs.maladroit.Vues.VueBillard;
 
 /**
  * responsable de l'animation des billes, c-à-d responsable du mouvement de la liste des billes. met perpétuellement à jour les billes. 
@@ -42,39 +42,33 @@ public class AnimationBilles  implements Runnable
     {
         try
         {
-            double deltaT;  // délai entre 2 mises à jour de la liste des billes
+            double deltaT;
             Bille billeCourante;
 
-            double minRayons = AnimationBilles.minRayons(billes);   //nécessaire au calcul de deltaT
-            double minRayons2 = minRayons*minRayons;                //nécessaire au calcul de deltaT
-
-            while (running)                           // gestion du mouvement
+            while (running)
             {
-                //deltaT = COEFF*minRayons2/(1+maxVitessesCarrées(billes));       // mise à jour deltaT. L'addition + 1 est une astuce pour éviter les divisions par zéro
-
-                                                                                //System.err.println("deltaT = " + deltaT);
                 deltaT = 10;
 
                 int i;
-                for ( i = 0; i < billes.size(); ++i)    // mise à jour de la liste des billes
+                for ( i = 0; i < billes.size(); ++i)
                     {
                         billeCourante = billes.get(i);
-                        billeCourante.déplacer(deltaT);                 // mise à jour position et vitesse de cette bille
-                        billeCourante.gestionAccélération(billes);      // calcul de l'accélération subie par cette bille
+                        billeCourante.déplacer(deltaT);
+                        billeCourante.gestionAccélération(billes);
                         billeCourante.gestionCollisionBilleBille(billes);
                         billeCourante.collisionContour( 0, 0, vueBillard.largeurBillard(), vueBillard.hauteurBillard());
 
                     }
 
-                vueBillard.miseAJour();                                // on prévient la vue qu'il faut redessiner les billes
-                Thread.sleep((int)deltaT);                          // deltaT peut être considéré comme le délai entre 2 flashes d'un stroboscope qui éclairerait la scène
+                vueBillard.miseAJour();
+                Thread.sleep((int)deltaT);
             }
 
         }
 
         catch (InterruptedException e)
         {
-        /* arrêt normal, il n'y a rien à faire dans ce cas */
+            //System.out.println("\Arret du thread");
         }
     }
 
@@ -116,22 +110,20 @@ public class AnimationBilles  implements Runnable
     }
 
 
-    public void lancerAnimation()
-    {
-    if (this.thread == null)
-        {
-        this.thread = new Thread(this);
-        thread.start();
-        }
+    public void lancerAnimation() {
+        if (this.thread == null)
+            {
+            this.thread = new Thread(this);
+            thread.start();
+            }
     }
 
-    public void arrêterAnimation()
-    {
-    if (thread != null)
-        {
-        this.thread.interrupt();
-        this.thread = null;
-        }
+    public void arrêterAnimation() {
+        if (thread != null)
+            {
+            this.thread.interrupt();
+            this.thread = null;
+            }
     }
 
     public void quitter() {

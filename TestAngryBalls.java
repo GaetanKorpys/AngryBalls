@@ -9,20 +9,20 @@ import java.awt.GraphicsDevice;
 import exodecorateur_angryballs.maladroit.Ecouteur.EcouteurBoutonArreter;
 import exodecorateur_angryballs.maladroit.Ecouteur.EcouteurBoutonLancer;
 import exodecorateur_angryballs.maladroit.Ecouteur.EcouteurBoutonQuitter;
-import exodecorateur_angryballs.maladroit.modele.*;
-import exodecorateur_angryballs.maladroit.modele.Decorateur.BilleFrottement;
-import exodecorateur_angryballs.maladroit.modele.Decorateur.BilleMRU;
-import exodecorateur_angryballs.maladroit.modele.Decorateur.BilleNewton;
-import exodecorateur_angryballs.maladroit.modele.Decorateur.BillePesanteur;
-import exodecorateur_angryballs.maladroit.modele.Decorateur.BillePilote;
-import exodecorateur_angryballs.maladroit.modele.Decorateur.BilleArret;
-import exodecorateur_angryballs.maladroit.modele.Decorateur.BillePasseMuraille;
-import exodecorateur_angryballs.maladroit.modele.Decorateur.BilleRebond;
-import exodecorateur_angryballs.maladroit.modele.Decorateur.BilleHurlante;
-import exodecorateur_angryballs.maladroit.modele.Decorateur.BilleSonCollision;
+import exodecorateur_angryballs.maladroit.Modele.*;
+import exodecorateur_angryballs.maladroit.Modele.Decorateur.BilleFrottement;
+import exodecorateur_angryballs.maladroit.Modele.Decorateur.BilleMRU;
+import exodecorateur_angryballs.maladroit.Modele.Decorateur.BilleNewton;
+import exodecorateur_angryballs.maladroit.Modele.Decorateur.BillePesanteur;
+import exodecorateur_angryballs.maladroit.Modele.Decorateur.BillePilote;
+import exodecorateur_angryballs.maladroit.Modele.Decorateur.BilleArret;
+import exodecorateur_angryballs.maladroit.Modele.Decorateur.BillePasseMuraille;
+import exodecorateur_angryballs.maladroit.Modele.Decorateur.BilleRebond;
+import exodecorateur_angryballs.maladroit.Modele.Decorateur.BilleHurlante;
+import exodecorateur_angryballs.maladroit.Modele.Decorateur.BilleSonCollision;
 import mesmaths.geometrie.base.Vecteur;
 import musique.SonLong;
-import exodecorateur_angryballs.maladroit.vues.CadreAngryBalls;
+import exodecorateur_angryballs.maladroit.Vues.CadreAngryBalls;
 
 
 /**
@@ -165,6 +165,7 @@ public class TestAngryBalls
 
         Attrapable = new BilleParDefaut(p4, rayon,v4,Color.orange, cadre);
         Attrapable = new BilleRebond(Attrapable);
+        Attrapable = new BilleSonCollision(Attrapable, hurlements);
         Attrapable = new BillePilote(Attrapable);
 
         /*
@@ -181,16 +182,16 @@ public class TestAngryBalls
         Division = new BilleParDefaut(p7, rayon, Color.PINK, cadre);
         Division = new BilleDivision(Division);
 
-
+*/
         billes.add(HurlanteNewtonArret);
         billes.add(NewtonFrottementRebond);
         billes.add(PesanteurFrottementRebond);
         billes.add(MRURebond);
-        billes.add(MRUPasseMuraille);*/
+        billes.add(MRUPasseMuraille);
         //billes.add(Fantome);
         //billes.add(Fusion);
         //billes.add(Division);
-        billes.add(Attrapable);
+        //billes.add(Attrapable);
 
         cadre.addChoixHurlementListener((ItemListener) HurlanteNewtonArret);
         cadre.addMouseListener((MouseListener) Attrapable);

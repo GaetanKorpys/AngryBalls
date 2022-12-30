@@ -1,12 +1,11 @@
 package exodecorateur_angryballs.maladroit;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.util.Vector;
 
 import mesmaths.geometrie.base.Vecteur;
-import exodecorateur_angryballs.maladroit.modele.Bille;
-import exodecorateur_angryballs.maladroit.vues.VueBillard;
+import exodecorateur_angryballs.maladroit.Modele.Bille;
+import exodecorateur_angryballs.maladroit.Vues.VueBillard;
 
 public class TestAnimationBilles
 {
