@@ -134,7 +134,7 @@ public class TestAngryBalls
         //--------------- ici commence la partie à changer ---------------------------------
         Bille HurlanteNewtonArret, NewtonFrottementRebond, PesanteurFrottementRebond, MRURebond, MRUPasseMuraille, Attrapable, Fantome, Fusion, Division;
 
-        HurlanteNewtonArret = new BilleParDefaut(p4, rayon, new Vecteur(),Color.black, cadre);
+        HurlanteNewtonArret = new BilleParDefaut(p1, rayon, new Vecteur(),Color.black, cadre);
         HurlanteNewtonArret = new BilleNewton(HurlanteNewtonArret);
         HurlanteNewtonArret = new BilleArret(HurlanteNewtonArret);
         HurlanteNewtonArret = new BilleSonCollision(HurlanteNewtonArret, hurlements);
@@ -146,7 +146,7 @@ public class TestAngryBalls
         NewtonFrottementRebond = new BilleFrottement(NewtonFrottementRebond);
         NewtonFrottementRebond = new BilleSonCollision(NewtonFrottementRebond,hurlements);
 
-        PesanteurFrottementRebond = new BilleParDefaut(p1, rayon,new Vecteur(),Color.yellow, cadre);
+        PesanteurFrottementRebond = new BilleParDefaut(p5, rayon,new Vecteur(),Color.yellow, cadre);
         PesanteurFrottementRebond = new BilleRebond(PesanteurFrottementRebond);
         PesanteurFrottementRebond = new BillePesanteur(PesanteurFrottementRebond,new Vecteur(0,0.001) );
         PesanteurFrottementRebond = new BilleFrottement(PesanteurFrottementRebond);
@@ -183,15 +183,17 @@ public class TestAngryBalls
         Division = new BilleDivision(Division);
 
 */
-        billes.add(HurlanteNewtonArret);
+
         billes.add(NewtonFrottementRebond);
         billes.add(PesanteurFrottementRebond);
         billes.add(MRURebond);
         billes.add(MRUPasseMuraille);
+        billes.add(HurlanteNewtonArret);
         //billes.add(Fantome);
         //billes.add(Fusion);
         //billes.add(Division);
-        //billes.add(Attrapable);
+        billes.add(Attrapable);
+
 
         cadre.addChoixHurlementListener((ItemListener) HurlanteNewtonArret);
         cadre.addMouseListener((MouseListener) Attrapable);
