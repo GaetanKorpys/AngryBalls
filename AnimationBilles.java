@@ -3,6 +3,10 @@ package exodecorateur_angryballs.maladroit;
 import java.util.Vector;
 
 import exodecorateur_angryballs.maladroit.Modele.Bille;
+import exodecorateur_angryballs.maladroit.Simulation.DivisionMode;
+import exodecorateur_angryballs.maladroit.Simulation.FusionMode;
+import exodecorateur_angryballs.maladroit.Simulation.Mode;
+import exodecorateur_angryballs.maladroit.Simulation.PresentationSujetMode;
 import exodecorateur_angryballs.maladroit.Vues.VueBillard;
 
 /**
@@ -15,26 +19,55 @@ public class AnimationBilles  implements Runnable
 {
 
 
-    Vector<Bille> billes;   // la liste de toutes les billes en mouvement
-    VueBillard vueBillard;    // la vue responsable du dessin des billes
-    private Thread thread;    // pour lancer et arrêter les billes
+    Vector<Bille> billes;
+    VueBillard cadre;
+    private Thread thread;
     public static boolean running;
+    private Mode mode;
 
+    private void initializedBilles()
+    {
+        this.arrêterAnimation();
+        //On indique au billard les billes présentes selon le mode
+        this.mode.genererBilles(cadre);
+        this.billes = mode.getBilles();
+        this.cadre.getBillard().setBilles(billes);
+        this.lancerAnimation();
+    }
 
-    private static final double COEFF = 0.5;
-
-    /**
-     * @param billes
-     * @param vueBillard
-     */
-    public AnimationBilles(Vector<Bille> billes, VueBillard vueBillard)
+    public AnimationBilles(Vector<Bille> billes, VueBillard cadre)
     {
         this.billes = billes;
-        this.vueBillard = vueBillard;
-        this.thread = null;     //est-ce utile ?
+        this.cadre = cadre;
+        this.thread = null;
         running = true;
+        this.cadre.setAnimationBilles(this);
+    }
 
-        this.vueBillard.setAnimationBilles(this);
+    public AnimationBilles(VueBillard cadre)
+    {
+        this.cadre = cadre;
+        this.thread = null;
+        running = true;
+        this.cadre.setAnimationBilles(this);
+
+        //On choisit le mode, par defaut il s'agit des billes demandées dans le sujet
+        this.setPresentationSujetMode();
+    }
+
+    public void setPresentationSujetMode() {
+        mode = new PresentationSujetMode(cadre);
+        initializedBilles();
+    }
+
+    public void setFusionMode() {
+        mode = new FusionMode(cadre);
+        initializedBilles();
+    }
+
+    public void setDivisionMode() {
+        mode = new DivisionMode(cadre);
+        initializedBilles();
     }
 
     @Override
@@ -44,7 +77,6 @@ public class AnimationBilles  implements Runnable
         {
             double deltaT;
             Bille billeCourante;
-
             while (running)
             {
                 deltaT = 10;
@@ -56,11 +88,11 @@ public class AnimationBilles  implements Runnable
                         billeCourante.déplacer(deltaT);
                         billeCourante.gestionAccélération(billes);
                         billeCourante.gestionCollisionBilleBille(billes);
-                        billeCourante.collisionContour( 0, 0, vueBillard.largeurBillard(), vueBillard.hauteurBillard());
+                        billeCourante.collisionContour( 0, 0, cadre.largeurBillard(), cadre.hauteurBillard());
 
                     }
 
-                vueBillard.miseAJour();
+                cadre.miseAJour();
                 Thread.sleep((int)deltaT);
             }
 
@@ -72,41 +104,30 @@ public class AnimationBilles  implements Runnable
         }
     }
 
-    /**
-     * calcule le maximum de de la norme carrée (pour faire moins de calcul) des vecteurs vitesse de la liste de billes
-     *
-     * */
-    static double maxVitessesCarrées(Vector<Bille> billes)
-    {
-    double vitesse2Max = 0;
+    static double maxVitessesCarrées(Vector<Bille> billes) {
+        double vitesse2Max = 0;
 
-    int i;
-    double vitesse2Courante;
+        int i;
+        double vitesse2Courante;
 
-    for ( i = 0; i < billes.size(); ++i)
-        if ( (vitesse2Courante = billes.get(i).getVitesse().normeCarrée()) > vitesse2Max)
-           vitesse2Max = vitesse2Courante;
+        for ( i = 0; i < billes.size(); ++i)
+            if ( (vitesse2Courante = billes.get(i).getVitesse().normeCarrée()) > vitesse2Max)
+               vitesse2Max = vitesse2Courante;
 
-    return vitesse2Max;
+        return vitesse2Max;
     }
 
-    /**
-     * calcule le minimum  des rayons de a liste des billes
-     *
-     *
-     * */
-    static double minRayons(Vector<Bille> billes)
-    {
-    double rayonMin, rayonCourant;
+    static double minRayons(Vector<Bille> billes) {
+        double rayonMin, rayonCourant;
 
-    rayonMin = Double.MAX_VALUE;
+        rayonMin = Double.MAX_VALUE;
 
-    int i;
-    for ( i = 0; i < billes.size(); ++i)
-        if ( ( rayonCourant = billes.get(i).getRayon()) < rayonMin)
-           rayonMin = rayonCourant;
+        int i;
+        for ( i = 0; i < billes.size(); ++i)
+            if ( ( rayonCourant = billes.get(i).getRayon()) < rayonMin)
+               rayonMin = rayonCourant;
 
-    return rayonMin;
+        return rayonMin;
     }
 
 
@@ -128,7 +149,8 @@ public class AnimationBilles  implements Runnable
 
     public void quitter() {
         running = false;
-        vueBillard.getGraphicsDevice().setFullScreenWindow(null);
+        cadre.getGraphicsDevice().setFullScreenWindow(null);
         System.exit(0);
     }
+
 }

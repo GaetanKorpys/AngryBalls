@@ -1,15 +1,17 @@
-package exodecorateur_angryballs.maladroit.Mode;
+package exodecorateur_angryballs.maladroit.Simulation;
 
 import exodecorateur_angryballs.maladroit.Modele.Bille;
 import exodecorateur_angryballs.maladroit.Modele.BilleParDefaut;
 import exodecorateur_angryballs.maladroit.Modele.Decorateur.BilleFusion;
 import exodecorateur_angryballs.maladroit.Modele.Decorateur.BillePilote;
 import exodecorateur_angryballs.maladroit.Modele.Decorateur.BilleRebond;
+import exodecorateur_angryballs.maladroit.Modele.Decorateur.BilleSonCollision;
 import exodecorateur_angryballs.maladroit.Vues.VueBillard;
 import mesmaths.geometrie.base.Vecteur;
 
 import java.awt.*;
-import java.util.Random;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class FusionMode extends Mode{
@@ -42,12 +44,15 @@ public class FusionMode extends Mode{
             b = ThreadLocalRandom.current().nextInt(0, 255 + 1);
 
             Color color = new Color(r,g,b);
-            tabBilles[i] = new BilleParDefaut(Vecteur.créationAléatoire(0, 0, xMax, yMax), rayon, new Vecteur(), color, vueBillard);
+            tabBilles[i] = new BilleParDefaut(Vecteur.créationAléatoire(0, 0, xMax, yMax), rayon, new Vecteur(), color, cadre);
             tabBilles[i] = new BilleRebond(tabBilles[i]);
-            tabBilles[i] = new BillePilote(tabBilles[i]);
             tabBilles[i] = new BilleFusion(tabBilles[i]);
+            tabBilles[i] = new BilleSonCollision(tabBilles[i], hurlements);
+            tabBilles[i] = new BillePilote(tabBilles[i]);
 
-            this.billes.add(tabBilles[i]);
+            billes.add(tabBilles[i]);
+            cadre.getBillard().addMouseListener((MouseListener) tabBilles[i]);
+            cadre.getBillard().addMouseMotionListener((MouseMotionListener) tabBilles[i]);
         }
     }
 }

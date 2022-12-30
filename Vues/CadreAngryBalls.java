@@ -2,9 +2,15 @@ package exodecorateur_angryballs.maladroit.Vues;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.util.Vector;
 
 import exodecorateur_angryballs.maladroit.AnimationBilles;
+import exodecorateur_angryballs.maladroit.OutilsConfigurationBilleHurlante;
+import exodecorateur_angryballs.maladroit.Simulation.DivisionMode;
+import exodecorateur_angryballs.maladroit.Simulation.FusionMode;
+import exodecorateur_angryballs.maladroit.Simulation.Mode;
+import exodecorateur_angryballs.maladroit.Simulation.PresentationSujetMode;
 import exodecorateur_angryballs.maladroit.Modele.Bille;
 import musique.SonLong;
 import outilsvues.EcouteurTerminaison;
@@ -23,23 +29,34 @@ public class CadreAngryBalls extends Frame implements VueBillard, KeyListener
 {
     TextField présentation;
     Billard billard;
-    public Button lancerBilles, arrêterBilles, quitter;
+    public Button lancerBilles, arrêterBilles, quitter, fusion;
     Panel haut, centre, bas, ligneBoutonsLancerArrêt;
     PanneauChoixHurlement ligneBoutonsChoixHurlement;
     EcouteurTerminaison ecouteurTerminaison;
     GraphicsDevice graphicsDevice;
     AnimationBilles animationBilles;
+    SonLong[] hurlements;
+    int choixHurlementInitial;
 
-    public CadreAngryBalls(String titre, String message, Vector<Bille> billes, SonLong [] hurlements, int choixHurlementInitial) throws HeadlessException
+    private void configurationSon()
     {
-        super(titre);
+        //---------------------- gestion des bruitages : paramétrage du chemin du dossier contenant les fichiers audio --------------------------
 
-        this.setIgnoreRepaint(true);
-        this.setUndecorated(true);
+        File file = new File(System.getProperty("user.dir").toString()); // là où la JVM est lancée : racine du projet
 
-        Outils.place(this, 0.33, 0.33, 0.5, 0.5);
-        this.ecouteurTerminaison = new EcouteurTerminaison(this);
+        File répertoireSon = new File(file.getAbsoluteFile(), "maladroit"+File.separatorChar+"bruits");
+        System.out.println(répertoireSon);
 
+        //-------------------- chargement des sons pour les hurlements --------------------------------------
+
+        Vector<SonLong> sonsLongs = OutilsConfigurationBilleHurlante.chargeSons(répertoireSon, "config_audio_bille_hurlante.txt");
+
+        hurlements = SonLong.toTableau(sonsLongs);
+    }
+
+    private void construtionCadre(String message, SonLong [] hurlements, int choixHurlementInitial)
+    {
+        int nombreLignes = 2, nombreColonnes = 1;
 
         this.haut = new Panel(); this.haut.setBackground(Color.LIGHT_GRAY);
         this.add(this.haut,BorderLayout.NORTH);
@@ -53,21 +70,10 @@ public class CadreAngryBalls extends Frame implements VueBillard, KeyListener
         this.présentation = new TextField(message, 100); this.présentation.setEditable(false);
         this.haut.add(this.présentation);
 
-        this.billard = new Billard(billes);
-        this.billard.addKeyListener(this);
-        this.add(this.billard);
-
-        //------------------- placement des composants du bas du cadre -------------------------------
-
-        int nombreLignes = 2, nombreColonnes = 1;
-
         this.bas.setLayout(new GridLayout(nombreLignes, nombreColonnes));
-
-        //---------------- placement des boutons lancer - arrêter ------------------------------------
 
         this.ligneBoutonsLancerArrêt = new Panel();
         this.bas.add(this.ligneBoutonsLancerArrêt);
-
 
         this.lancerBilles = new Button("Lancer les billes");
         this.ligneBoutonsLancerArrêt.add(this.lancerBilles);
@@ -78,10 +84,32 @@ public class CadreAngryBalls extends Frame implements VueBillard, KeyListener
         this.quitter = new Button("Quitter");
         this.ligneBoutonsLancerArrêt.add(this.quitter);
 
-        //---------------- placement de la ligne de boutons de choix des sons pour le hurlement ------
+        this.fusion = new Button("Mode Fusion");
+        this.ligneBoutonsLancerArrêt.add(this.fusion);
 
         this.ligneBoutonsChoixHurlement = new PanneauChoixHurlement(hurlements, choixHurlementInitial);
         this.bas.add(this.ligneBoutonsChoixHurlement);
+    }
+
+
+    public CadreAngryBalls(String titre, String message) throws HeadlessException
+    {
+        super(titre);
+
+        configurationSon();
+        choixHurlementInitial = 0;
+
+        this.setIgnoreRepaint(true);
+        this.setUndecorated(true);
+
+        Outils.place(this, 0.33, 0.33, 0.5, 0.5);
+        ecouteurTerminaison = new EcouteurTerminaison(this);
+
+        construtionCadre(message, hurlements, choixHurlementInitial);
+
+        billard = new Billard();
+        billard.addKeyListener(this);
+        this.add(this.billard);
 
     }
 
@@ -96,20 +124,26 @@ public class CadreAngryBalls extends Frame implements VueBillard, KeyListener
     }
 
     @Override
+    public Billard getBillard() {
+        return billard;
+    }
+
+    @Override
+    public SonLong[] getHurlements() {return hurlements;}
+
+    @Override
     public void miseAJour()
     {
     this.billard.repaint();
     }
 
-    /* (non-Javadoc)
-     * @see exodecorateur.vues.VueBillard#montrer()
-     */
     @Override
     public void montrer()
     {
-    this.setVisible(true);
+        this.setVisible(true);
     }
 
+    @Override
     public void addChoixHurlementListener(ItemListener écouteurChoixHurlant)
     {
         int i;
@@ -118,15 +152,11 @@ public class CadreAngryBalls extends Frame implements VueBillard, KeyListener
 
     public void setGraphics(GraphicsDevice gd) {graphicsDevice = gd;}
 
+    @Override
     public GraphicsDevice getGraphicsDevice(){return graphicsDevice;}
 
+    @Override
     public void setAnimationBilles (AnimationBilles animationBilles){this.animationBilles = animationBilles;}
-
-    @Override
-    public void addMouseListener(MouseListener mouseListener){billard.addMouseListener(mouseListener);}
-
-    @Override
-    public void addMouseMotionListener(MouseMotionListener mouseMotionListener){billard.addMouseMotionListener(mouseMotionListener);}
 
     @Override
     public void keyPressed(KeyEvent e) {

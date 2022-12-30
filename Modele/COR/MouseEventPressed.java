@@ -19,7 +19,6 @@ public class MouseEventPressed extends MouseEventExpertCOR {
             MouseEventExpertCOR.positionSourisPressed = new Vecteur(e.getX(), e.getY());
             if (this.getBille().pointIsInsideBille(MouseEventExpertCOR.positionSourisPressed)) {
                 this.getBille().setControleurCourant(controleur.getNext());
-                System.out.println("----> Caught");
             }
 
             return true;

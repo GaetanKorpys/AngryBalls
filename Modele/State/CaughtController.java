@@ -28,8 +28,6 @@ public class CaughtController extends ControllerOK {
         x.setColor(Color.BLACK);//black
         x.fillOval(xMin, yMin, width, height);
 
-
-
     }
     public Double calculate(Double base, Double n) {
         return Math.pow(Math.E, Math.log(base)/n);
@@ -38,7 +36,6 @@ public class CaughtController extends ControllerOK {
     @Override
     public void gestionAccélération(Bille g, Vector<Bille> billes, MouseEvent e) {
 
-        System.out.println(e.getX() + " " + e.getY());
         if(g.pointIsInsideBille(new Vecteur(e.getX(), e.getY()))){
             g.getAccélération().ajoute(MecaniquePoint.freinageFrottement(g.masse()*0.1 , g.getVitesse().produit(g.masse()/10000)));
         }else {
@@ -63,9 +60,7 @@ public class CaughtController extends ControllerOK {
             direction = direction.produit(0.01);
 
             g.getAccélération().ajoute(direction);
-            //g.getAccélération().ajoute(MecaniquePoint.freinageFrottement(g.masse() * 0.1, g.getVitesse().produit(g.masse() / 10000)));
-
-
+            g.getAccélération().ajoute(MecaniquePoint.freinageFrottement(g.masse() * 0.1, g.getVitesse().produit(g.masse() / 10000)));
         }
 
     }
