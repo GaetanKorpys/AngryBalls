@@ -6,6 +6,7 @@ import mesmaths.geometrie.base.Geop;
 import mesmaths.geometrie.base.Vecteur;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.util.Vector;
 
 //Bille de billard classique avec vitesse rectiligne uniforme (donc pas d'acceleration) et des rebonds sur les bords
@@ -114,5 +115,10 @@ public class BilleParDefaut extends Bille {
     public boolean pointIsInsideBille(Vecteur point) {
         double distance = Math.sqrt(Math.pow(point.x - this.getPosition().x, 2) + Math.pow(point.y - this.getPosition().y, 2));
         return distance < this.getRayon();
+    }
+
+    @Override
+    public void handleMouseEvent(MouseEvent e) {
+        //Ne fait rien
     }
 }

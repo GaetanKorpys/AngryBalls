@@ -12,7 +12,7 @@ import java.awt.event.MouseEvent;
 import java.util.Vector;
 
 
-public class BillePilote extends DecoratorBille implements MouseInputListener {
+public class BillePilote extends DecoratorBille {
 
     ControllerOK controleurCourant;
     CatchableController controleurAttrapable;
@@ -41,45 +41,14 @@ public class BillePilote extends DecoratorBille implements MouseInputListener {
         this.controleurCourant.handleMouseEvent(e);
     }
 
+    /*
     public void dessine(Graphics g) {
-        _decoredBille.dessine(g);
-        controleurCourant.dessine(this,g);
-    }
+        //_decoredBille.dessine(g);
+        //controleurCourant.dessine(this,g);
+    }*/
 
     public void gestionAccélération(Vector<Bille> billes) {
         _decoredBille.gestionAccélération(billes);
         controleurCourant.gestionAccélération(this,billes,e);
-    }
-
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        handleMouseEvent(e);
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        handleMouseEvent(e);
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-        //System.out.println("\nMOVED");
     }
 }

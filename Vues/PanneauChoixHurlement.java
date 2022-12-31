@@ -17,7 +17,7 @@ import musique.SonLong;
  * */
 public class PanneauChoixHurlement extends Panel
 {
-BoutonChoixHurlement boutons[];
+public BoutonChoixHurlement boutons[];
 CheckboxGroup checkboxGroup;
 
 /**

@@ -1,6 +1,7 @@
 package exodecorateur_angryballs.maladroit.Modele;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.util.Vector;
 
 import exodecorateur_angryballs.maladroit.Vues.VueBillard;
@@ -89,6 +90,8 @@ public abstract class Bille
     public abstract String toString();
 
     public abstract boolean pointIsInsideBille(Vecteur point);
+
+    public abstract void handleMouseEvent(MouseEvent e);
 
 
 

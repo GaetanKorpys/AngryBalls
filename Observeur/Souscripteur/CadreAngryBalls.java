@@ -1,4 +1,4 @@
-package exodecorateur_angryballs.maladroit.Vues;
+package exodecorateur_angryballs.maladroit.Observeur.Souscripteur;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -6,12 +6,12 @@ import java.io.File;
 import java.util.Vector;
 
 import exodecorateur_angryballs.maladroit.AnimationBilles;
+import exodecorateur_angryballs.maladroit.Ecouteur.Ecoutable;
+import exodecorateur_angryballs.maladroit.Observeur.Diffuseur.Bouton.*;
 import exodecorateur_angryballs.maladroit.OutilsConfigurationBilleHurlante;
-import exodecorateur_angryballs.maladroit.Simulation.DivisionMode;
-import exodecorateur_angryballs.maladroit.Simulation.FusionMode;
-import exodecorateur_angryballs.maladroit.Simulation.Mode;
-import exodecorateur_angryballs.maladroit.Simulation.PresentationSujetMode;
-import exodecorateur_angryballs.maladroit.Modele.Bille;
+import exodecorateur_angryballs.maladroit.Observeur.Diffuseur.Billard;
+import exodecorateur_angryballs.maladroit.Vues.PanneauChoixHurlement;
+import exodecorateur_angryballs.maladroit.Vues.VueBillard;
 import musique.SonLong;
 import outilsvues.EcouteurTerminaison;
 
@@ -25,11 +25,11 @@ import outilsvues.Outils;
  *  
  * 
  * */
-public class CadreAngryBalls extends Frame implements VueBillard, KeyListener
+public class CadreAngryBalls extends Frame implements VueBillard, KeyListener, Souscripteur
 {
     TextField présentation;
     Billard billard;
-    public Button lancerBilles, arrêterBilles, quitter, fusion;
+    Bouton lancerBilles, arrêterBilles, quitter, fusion, division, reset, parDefaut;
     Panel haut, centre, bas, ligneBoutonsLancerArrêt;
     PanneauChoixHurlement ligneBoutonsChoixHurlement;
     EcouteurTerminaison ecouteurTerminaison;
@@ -75,17 +75,33 @@ public class CadreAngryBalls extends Frame implements VueBillard, KeyListener
         this.ligneBoutonsLancerArrêt = new Panel();
         this.bas.add(this.ligneBoutonsLancerArrêt);
 
-        this.lancerBilles = new Button("Lancer les billes");
+        this.lancerBilles = new BoutonLancer("Lancer les billes", animationBilles);
+        this.lancerBilles.addSouscripteur(this);
         this.ligneBoutonsLancerArrêt.add(this.lancerBilles);
 
-        this.arrêterBilles = new Button("Arrêter les billes");
+        this.arrêterBilles = new BoutonArreter("Arrêter les billes", animationBilles);
+        this.arrêterBilles.addSouscripteur(this);
         this.ligneBoutonsLancerArrêt.add(this.arrêterBilles);
 
-        this.quitter = new Button("Quitter");
-        this.ligneBoutonsLancerArrêt.add(this.quitter);
+        this.parDefaut = new BoutonParDefaut("Mode par défaut",animationBilles);
+        this.parDefaut.addSouscripteur(this);
+        this.ligneBoutonsLancerArrêt.add(this.parDefaut);
 
-        this.fusion = new Button("Mode Fusion");
+        this.fusion = new BoutonFusion("Mode Fusion",animationBilles);
+        this.fusion.addSouscripteur(this);
         this.ligneBoutonsLancerArrêt.add(this.fusion);
+
+        this.division = new BoutonDivision("Mode division",animationBilles);
+        this.division.addSouscripteur(this);
+        this.ligneBoutonsLancerArrêt.add(this.division);
+
+        this.reset = new BoutonReset("Reset simulation",animationBilles);
+        this.reset.addSouscripteur(this);
+        this.ligneBoutonsLancerArrêt.add(this.reset);
+
+        this.quitter = new BoutonQuitter("Quitter",animationBilles);
+        this.quitter.addSouscripteur(this);
+        this.ligneBoutonsLancerArrêt.add(this.quitter);
 
         this.ligneBoutonsChoixHurlement = new PanneauChoixHurlement(hurlements, choixHurlementInitial);
         this.bas.add(this.ligneBoutonsChoixHurlement);
@@ -108,6 +124,7 @@ public class CadreAngryBalls extends Frame implements VueBillard, KeyListener
         construtionCadre(message, hurlements, choixHurlementInitial);
 
         billard = new Billard();
+        billard.addSouscripteur(this);
         billard.addKeyListener(this);
         this.add(this.billard);
 
@@ -175,5 +192,10 @@ public class CadreAngryBalls extends Frame implements VueBillard, KeyListener
     @Override
     public void keyTyped(KeyEvent e) {
         //Todo
+    }
+
+    @Override
+    public void update(Ecoutable ecoutable, AWTEvent e) {
+        ecoutable.action(animationBilles, e);
     }
 }

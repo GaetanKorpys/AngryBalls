@@ -4,6 +4,7 @@ import exodecorateur_angryballs.maladroit.Vues.VueBillard;
 import mesmaths.geometrie.base.Vecteur;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.util.Vector;
 
 public abstract class DecoratorBille extends Bille {
@@ -88,4 +89,8 @@ public abstract class DecoratorBille extends Bille {
         return _decoredBille.pointIsInsideBille(point);
     }
 
+    @Override
+    public void handleMouseEvent(MouseEvent e) {
+        _decoredBille.handleMouseEvent(e);
+    }
 }

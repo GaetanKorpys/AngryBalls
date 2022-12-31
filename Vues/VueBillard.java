@@ -2,6 +2,7 @@ package exodecorateur_angryballs.maladroit.Vues;
 
 
 import exodecorateur_angryballs.maladroit.AnimationBilles;
+import exodecorateur_angryballs.maladroit.Observeur.Diffuseur.Billard;
 import musique.SonLong;
 
 import java.awt.*;

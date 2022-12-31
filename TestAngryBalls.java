@@ -1,30 +1,9 @@
 package exodecorateur_angryballs.maladroit;
 
 import java.awt.*;
-import java.awt.event.*;
-import java.io.File;
-import java.util.Vector;
 import java.awt.GraphicsDevice;
 
-import exodecorateur_angryballs.maladroit.Ecouteur.EcouteurBoutonArreter;
-import exodecorateur_angryballs.maladroit.Ecouteur.EcouteurBoutonFusion;
-import exodecorateur_angryballs.maladroit.Ecouteur.EcouteurBoutonLancer;
-import exodecorateur_angryballs.maladroit.Ecouteur.EcouteurBoutonQuitter;
-import exodecorateur_angryballs.maladroit.Modele.*;
-import exodecorateur_angryballs.maladroit.Modele.Decorateur.BilleFrottement;
-import exodecorateur_angryballs.maladroit.Modele.Decorateur.BilleMRU;
-import exodecorateur_angryballs.maladroit.Modele.Decorateur.BilleNewton;
-import exodecorateur_angryballs.maladroit.Modele.Decorateur.BillePesanteur;
-import exodecorateur_angryballs.maladroit.Modele.Decorateur.BillePilote;
-import exodecorateur_angryballs.maladroit.Modele.Decorateur.BilleArret;
-import exodecorateur_angryballs.maladroit.Modele.Decorateur.BillePasseMuraille;
-import exodecorateur_angryballs.maladroit.Modele.Decorateur.BilleRebond;
-import exodecorateur_angryballs.maladroit.Modele.Decorateur.BilleHurlante;
-import exodecorateur_angryballs.maladroit.Modele.Decorateur.BilleSonCollision;
-import exodecorateur_angryballs.maladroit.Vues.VueBillard;
-import mesmaths.geometrie.base.Vecteur;
-import musique.SonLong;
-import exodecorateur_angryballs.maladroit.Vues.CadreAngryBalls;
+import exodecorateur_angryballs.maladroit.Observeur.Souscripteur.CadreAngryBalls;
 
 
 /**
@@ -79,14 +58,18 @@ public class TestAngryBalls
 
         AnimationBilles animationBilles = new AnimationBilles(cadre);
 
-        configurationDisplay(cadre);
+        //configurationDisplay(cadre);
 
         //----------------------- mise en place des écouteurs de boutons qui permettent de contrôler (un peu...) l'application -----------------
 
+        /*
         EcouteurBoutonLancer ecouteurBoutonLancer = new EcouteurBoutonLancer(animationBilles);
         EcouteurBoutonArreter ecouteurBoutonArrêter = new EcouteurBoutonArreter(animationBilles);
         EcouteurBoutonQuitter ecouteurBoutonQuitter = new EcouteurBoutonQuitter(animationBilles);
         EcouteurBoutonFusion ecouteurBoutonFusion = new EcouteurBoutonFusion(animationBilles);
+        EcouteurBoutonDivision ecouteurBoutonDivision = new EcouteurBoutonDivision(animationBilles);
+        EcouteurBoutonReset ecouteurBoutonReset = new EcouteurBoutonReset(animationBilles);
+        EcouteurBoutonParDefaut ecouteurBoutonParDefaut = new EcouteurBoutonParDefaut(animationBilles);
 
 
         //------------------------- activation des écouteurs des boutons et ça tourne tout seul ------------------------------
@@ -95,5 +78,8 @@ public class TestAngryBalls
         cadre.arrêterBilles.addActionListener(ecouteurBoutonArrêter);
         cadre.quitter.addActionListener(ecouteurBoutonQuitter);
         cadre.fusion.addActionListener(ecouteurBoutonFusion);
+        cadre.division.addActionListener(ecouteurBoutonDivision);
+        cadre.reset.addActionListener(ecouteurBoutonReset);
+        cadre.parDefaut.addActionListener(ecouteurBoutonParDefaut);*/
     }
 }

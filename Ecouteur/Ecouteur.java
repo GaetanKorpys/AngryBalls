@@ -1,16 +1,17 @@
 package exodecorateur_angryballs.maladroit.Ecouteur;
 
-import exodecorateur_angryballs.maladroit.AnimationBilles;
+import exodecorateur_angryballs.maladroit.Observeur.Diffuseur.Diffuseur;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+public abstract class Ecouteur {
 
-public abstract class Ecouteur implements ActionListener {
-    AnimationBilles animationBilles;
+    private Diffuseur diffuseur;
 
-   public Ecouteur(AnimationBilles animationBilles){this.animationBilles = animationBilles;}
+    public Ecouteur(Diffuseur diffuseur) {
+        this.diffuseur = diffuseur;
+    }
 
-    @Override
-    public abstract void actionPerformed(ActionEvent e);
-
+    public Diffuseur getDiffuseur() {
+        return this.diffuseur;
+    }
 }
+

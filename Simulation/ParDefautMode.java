@@ -3,7 +3,6 @@ package exodecorateur_angryballs.maladroit.Simulation;
 import exodecorateur_angryballs.maladroit.Modele.Bille;
 import exodecorateur_angryballs.maladroit.Modele.BilleParDefaut;
 import exodecorateur_angryballs.maladroit.Modele.Decorateur.*;
-import exodecorateur_angryballs.maladroit.Vues.CadreAngryBalls;
 import exodecorateur_angryballs.maladroit.Vues.VueBillard;
 import mesmaths.geometrie.base.Vecteur;
 
@@ -12,15 +11,15 @@ import java.awt.event.ItemListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-public class PresentationSujetMode extends Mode{
+public class ParDefautMode extends Mode{
 
-    public PresentationSujetMode(VueBillard cadre){super(cadre);}
+    public ParDefautMode(VueBillard cadre){super(cadre);}
 
     @Override
     protected void preparerBilles() {
 
 
-        this.rayon =  0.05*Math.min(xMax, yMax);
+        //this.rayon =  0.05*Math.min(xMax, yMax);
         int choixHurlementInitial = 0;
 
         Bille HurlanteNewtonArret, NewtonFrottementRebond, PesanteurFrottementRebond, MRURebond, MRUPasseMuraille, PiloteFrottementArret;
@@ -69,8 +68,9 @@ public class PresentationSujetMode extends Mode{
 
         PiloteFrottementArret = new BilleParDefaut(p5, rayon, new Vecteur(), Color.orange, cadre);
         PiloteFrottementArret = new BilleRebond(PiloteFrottementArret);
-        PiloteFrottementArret = new BilleSonCollision(PiloteFrottementArret, hurlements);
         PiloteFrottementArret = new BillePilote(PiloteFrottementArret);
+        PiloteFrottementArret = new BilleSonCollision(PiloteFrottementArret, hurlements);
+
 
         billes.add(HurlanteNewtonArret);
         billes.add(NewtonFrottementRebond);
@@ -79,8 +79,8 @@ public class PresentationSujetMode extends Mode{
         billes.add(MRUPasseMuraille);
         billes.add(PiloteFrottementArret);
 
-        cadre.getBillard().addMouseListener((MouseListener) PiloteFrottementArret);
-        cadre.getBillard().addMouseMotionListener((MouseMotionListener) PiloteFrottementArret);
+        //cadre.getBillard().addMouseListener((MouseListener) PiloteFrottementArret);
+        //cadre.getBillard().addMouseMotionListener((MouseMotionListener) PiloteFrottementArret);
         cadre.addChoixHurlementListener((ItemListener) HurlanteNewtonArret);
     }
 }

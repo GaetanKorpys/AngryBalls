@@ -6,7 +6,7 @@ import exodecorateur_angryballs.maladroit.Modele.Bille;
 import exodecorateur_angryballs.maladroit.Simulation.DivisionMode;
 import exodecorateur_angryballs.maladroit.Simulation.FusionMode;
 import exodecorateur_angryballs.maladroit.Simulation.Mode;
-import exodecorateur_angryballs.maladroit.Simulation.PresentationSujetMode;
+import exodecorateur_angryballs.maladroit.Simulation.ParDefautMode;
 import exodecorateur_angryballs.maladroit.Vues.VueBillard;
 
 /**
@@ -32,7 +32,8 @@ public class AnimationBilles  implements Runnable
         this.mode.genererBilles(cadre);
         this.billes = mode.getBilles();
         this.cadre.getBillard().setBilles(billes);
-        this.lancerAnimation();
+
+        cadre.miseAJour();
     }
 
     public AnimationBilles(Vector<Bille> billes, VueBillard cadre)
@@ -56,7 +57,7 @@ public class AnimationBilles  implements Runnable
     }
 
     public void setPresentationSujetMode() {
-        mode = new PresentationSujetMode(cadre);
+        mode = new ParDefautMode(cadre);
         initializedBilles();
     }
 
@@ -153,4 +154,7 @@ public class AnimationBilles  implements Runnable
         System.exit(0);
     }
 
+    public void resetSimulation() {
+        this.initializedBilles();
+    }
 }

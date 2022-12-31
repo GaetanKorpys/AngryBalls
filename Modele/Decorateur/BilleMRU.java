@@ -18,6 +18,6 @@ public class BilleMRU extends DecoratorBille {
     @Override
     public void gestionAccélération(Vector<Bille> billes) {
         _decoredBille.gestionAccélération(billes);
-        this.setVitesse(this.vitesse);
+        _decoredBille.setVitesse(this.vitesse);
     }
 }

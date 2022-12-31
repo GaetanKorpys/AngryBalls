@@ -38,18 +38,19 @@ public class BilleFusion extends DecoratorBille {
                 position.multiplie(0.5);
                 Color couleur = new Color((this.getCouleur().getRed()+billeCourante.getCouleur().getRed())/2,(this.getCouleur().getGreen()+billeCourante.getCouleur().getGreen())/2,(this.getCouleur().getBlue()+billeCourante.getCouleur().getBlue())/2);
                 Double rayon = Math.sqrt(((3.14*billeCourante.getRayon()*billeCourante.getRayon())+(3.14*this.getRayon()*this.getRayon()))/3.14);
-                Bille billeFusion = new BilleParDefaut(position, rayon,this.getVitesse().somme(billeCourante.getVitesse()).produit(0.5) ,couleur, getVueBillard());
-                //billeFusion = new BilleMRU(billeFusion, this.getVitesse().somme(billeCourante.getVitesse()).produit(0.5));
+                Bille billeFusion = new BilleParDefaut(position, rayon, new Vecteur() ,couleur, getVueBillard());
+                billeFusion = new BilleMRU(billeFusion, this.getVitesse().somme(billeCourante.getVitesse()).produit(0.5));
                 billeFusion = new BilleRebond(billeFusion);
-                billeFusion = new BilleFusion(billeFusion);
                 billeFusion = new BilleSonCollision(billeFusion,this.getVueBillard().getHurlements());
                 billeFusion = new BillePilote(billeFusion);
+                billeFusion = new BilleFusion(billeFusion);
                 billes.remove(billeCourante);
                 billes.remove(this);
                 billes.add(billeFusion);
-
-                this.getVueBillard().getBillard().addMouseListener((MouseListener) billeFusion);
-                this.getVueBillard().getBillard().addMouseMotionListener((MouseMotionListener) billeFusion);
+                System.out.println("\n"+this.getClef());
+                System.out.println("\n"+billes);
+                //this.getVueBillard().getBillard().addMouseListener((MouseListener) billeFusion);
+                //this.getVueBillard().getBillard().addMouseMotionListener((MouseMotionListener) billeFusion);
                 return true;
 
             }
