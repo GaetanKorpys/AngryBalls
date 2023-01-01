@@ -1,11 +1,15 @@
 package exodecorateur_angryballs.maladroit.Observeur.Diffuseur;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
 
 import exodecorateur_angryballs.maladroit.AnimationBilles;
 import exodecorateur_angryballs.maladroit.Ecouteur.Ecoutable;
+import exodecorateur_angryballs.maladroit.Ecouteur.Ecouteur;
+import exodecorateur_angryballs.maladroit.Ecouteur.EcouteurKey;
 import exodecorateur_angryballs.maladroit.Ecouteur.EcouteurMouse;
 import exodecorateur_angryballs.maladroit.Modele.Bille;
 import exodecorateur_angryballs.maladroit.Observeur.Diffuseur.Diffuseur;
@@ -24,9 +28,11 @@ public class Billard extends Canvas implements Diffuseur, Ecoutable
     public Billard()
     {
         souscripteurs = new Vector<Souscripteur>();
-        EcouteurMouse ecouteur = new EcouteurMouse(this);
-        this.addMouseListener(ecouteur);
-        this.addMouseMotionListener(ecouteur);
+        EcouteurMouse ecouteurMouse = new EcouteurMouse(this);
+        EcouteurKey ecouteurKey = new EcouteurKey(this);
+        this.addMouseListener(ecouteurMouse);
+        this.addMouseMotionListener(ecouteurMouse);
+        this.addKeyListener(ecouteurKey);
     }
 
     public void setBilles(Vector<Bille> billes){
@@ -45,10 +51,16 @@ public class Billard extends Canvas implements Diffuseur, Ecoutable
 
     @Override
     public void action(AnimationBilles animationBilles, AWTEvent e) {
-        if(billes !=null) {
-            for (Bille bille : billes)
-                bille.handleMouseEvent((MouseEvent) e);
-        }
+        if(e.getClass().equals(MouseEvent.class))
+            if(billes !=null)
+                for (Bille bille : billes)
+                    bille.handleMouseEvent((MouseEvent) e);
+
+        if(e.getClass().equals(KeyEvent.class))
+                if(((KeyEvent) e).getKeyCode() == KeyEvent.VK_ESCAPE)
+                    if (animationBilles != null)
+                        animationBilles.quitter();
+
     }
 
     @Override

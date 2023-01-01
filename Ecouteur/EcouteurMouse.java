@@ -14,7 +14,7 @@ public class EcouteurMouse extends Ecouteur implements MouseInputListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        this.getDiffuseur().notifySouscripteurs(e);
+        //this.getDiffuseur().notifySouscripteurs(e);
     }
 
 
@@ -32,25 +32,25 @@ public class EcouteurMouse extends Ecouteur implements MouseInputListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        this.getDiffuseur().notifySouscripteurs(e);
+        //this.getDiffuseur().notifySouscripteurs(e);
     }
 
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        this.getDiffuseur().notifySouscripteurs(e);
+        //this.getDiffuseur().notifySouscripteurs(e);
     }
 
 
     @Override
     public void mouseExited(MouseEvent e) {
-        this.getDiffuseur().notifySouscripteurs(e);
+        //this.getDiffuseur().notifySouscripteurs(e);
     }
 
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        this.getDiffuseur().notifySouscripteurs(e);
+        //this.getDiffuseur().notifySouscripteurs(e);
     }
 
 }

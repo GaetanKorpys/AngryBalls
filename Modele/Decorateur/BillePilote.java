@@ -41,11 +41,11 @@ public class BillePilote extends DecoratorBille {
         this.controleurCourant.handleMouseEvent(e);
     }
 
-    /*
+
     public void dessine(Graphics g) {
-        //_decoredBille.dessine(g);
-        //controleurCourant.dessine(this,g);
-    }*/
+        _decoredBille.dessine(g);
+        controleurCourant.dessine(this,g);
+    }
 
     public void gestionAccélération(Vector<Bille> billes) {
         _decoredBille.gestionAccélération(billes);

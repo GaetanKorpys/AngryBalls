@@ -25,7 +25,7 @@ public class CaughtController extends ControllerOK {
         xMin = (int) (Math.round(g.getPosition().x - g.getRayon()) +g.getRayon()*0.40 );
         yMin = (int) (Math.round(g.getPosition().y - g.getRayon()) +g.getRayon()*0.40);
         width = height =(int)( 2 *  Math.round(g.getRayon()) * 0.60);
-        x.setColor(Color.BLACK);//black
+        x.setColor(Color.WHITE);
         x.fillOval(xMin, yMin, width, height);
 
     }

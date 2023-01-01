@@ -25,7 +25,7 @@ import outilsvues.Outils;
  *  
  * 
  * */
-public class CadreAngryBalls extends Frame implements VueBillard, KeyListener, Souscripteur
+public class CadreAngryBalls extends Frame implements VueBillard, Souscripteur
 {
     TextField présentation;
     Billard billard;
@@ -125,7 +125,6 @@ public class CadreAngryBalls extends Frame implements VueBillard, KeyListener, S
 
         billard = new Billard();
         billard.addSouscripteur(this);
-        billard.addKeyListener(this);
         this.add(this.billard);
 
     }
@@ -174,25 +173,6 @@ public class CadreAngryBalls extends Frame implements VueBillard, KeyListener, S
 
     @Override
     public void setAnimationBilles (AnimationBilles animationBilles){this.animationBilles = animationBilles;}
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if( e.getKeyCode() == KeyEvent.VK_ESCAPE )
-        {
-            if(animationBilles != null)
-                animationBilles.quitter();
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        //Todo
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        //Todo
-    }
 
     @Override
     public void update(Ecoutable ecoutable, AWTEvent e) {

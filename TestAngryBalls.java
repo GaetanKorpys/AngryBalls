@@ -58,7 +58,7 @@ public class TestAngryBalls
 
         AnimationBilles animationBilles = new AnimationBilles(cadre);
 
-        //configurationDisplay(cadre);
+        configurationDisplay(cadre);
 
         //----------------------- mise en place des écouteurs de boutons qui permettent de contrôler (un peu...) l'application -----------------
 
