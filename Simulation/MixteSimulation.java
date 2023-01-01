@@ -7,11 +7,10 @@ import exodecorateur_angryballs.maladroit.Vues.VueBillard;
 import mesmaths.geometrie.base.Vecteur;
 
 import java.awt.*;
-import java.util.concurrent.ThreadLocalRandom;
 
-public class MixteMode extends Mode{
+public class MixteSimulation extends Simulation {
 
-    public MixteMode(VueBillard cadre) {
+    public MixteSimulation(VueBillard cadre) {
         super(cadre);
     }
 

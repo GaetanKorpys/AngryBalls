@@ -2,28 +2,29 @@ package exodecorateur_angryballs.maladroit.Modele.State;
 
 
 import exodecorateur_angryballs.maladroit.Modele.Bille;
-import exodecorateur_angryballs.maladroit.Modele.COR.MouseEventPressed;
+import exodecorateur_angryballs.maladroit.Modele.COR.ExpertEventDragged;
 import exodecorateur_angryballs.maladroit.Modele.Decorateur.BillePilote;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
 
-public class CatchableController extends ControllerOK {
+public class BilleAttrapableState extends State {
 
-    public CatchableController(BillePilote bille, ControllerOK next, ControllerOK previous) {
+    public BilleAttrapableState(BillePilote bille, State next, State previous) {
         super(bille, next, previous);
-        this.expert = new MouseEventPressed(null, bille);
+        this.expert = new ExpertEventDragged(null, bille);
     }
 
+    //La bille n'est pas attrapée donc on ne fait rien
     @Override
     public void dessine(Bille g, Graphics x) {
-        //System.out.println("Ne dessine rien");
+        //Todo
     }
 
     @Override
     public void gestionAccélération(Bille g, Vector<Bille> billes, MouseEvent e) {
-        //System.out.println("Pas d'accel");
+        //Todo
     }
 
 }

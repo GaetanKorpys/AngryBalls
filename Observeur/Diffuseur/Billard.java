@@ -2,20 +2,17 @@ package exodecorateur_angryballs.maladroit.Observeur.Diffuseur;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
 
 import exodecorateur_angryballs.maladroit.AnimationBilles;
-import exodecorateur_angryballs.maladroit.Ecouteur.Ecoutable;
-import exodecorateur_angryballs.maladroit.Ecouteur.Ecouteur;
+import exodecorateur_angryballs.maladroit.Ecouteur.DoAction;
 import exodecorateur_angryballs.maladroit.Ecouteur.EcouteurKey;
 import exodecorateur_angryballs.maladroit.Ecouteur.EcouteurMouse;
 import exodecorateur_angryballs.maladroit.Modele.Bille;
-import exodecorateur_angryballs.maladroit.Observeur.Diffuseur.Diffuseur;
 import exodecorateur_angryballs.maladroit.Observeur.Souscripteur.Souscripteur;
 
-public class Billard extends Canvas implements Diffuseur, Ecoutable
+public class Billard extends Canvas implements Diffuseur, DoAction
 {
     Vector<Bille> billes;
     Vector<Souscripteur> souscripteurs;
@@ -28,6 +25,7 @@ public class Billard extends Canvas implements Diffuseur, Ecoutable
     public Billard()
     {
         souscripteurs = new Vector<Souscripteur>();
+        //On ajoute les écouteurs
         EcouteurMouse ecouteurMouse = new EcouteurMouse(this);
         EcouteurKey ecouteurKey = new EcouteurKey(this);
         this.addMouseListener(ecouteurMouse);
@@ -43,18 +41,17 @@ public class Billard extends Canvas implements Diffuseur, Ecoutable
     public void paint(Graphics graphics)
     {
         int i;
-
         for ( i = 0; i < this.billes.size(); ++i)
             this.billes.get(i).dessine(graphics);
-
     }
 
+    //A améliorer
     @Override
-    public void action(AnimationBilles animationBilles, AWTEvent e) {
+    public void doAction(AnimationBilles animationBilles, AWTEvent e) {
         if(e.getClass().equals(MouseEvent.class))
             if(billes !=null)
                 for (Bille bille : billes)
-                    bille.handleMouseEvent((MouseEvent) e);
+                    bille.sendEventToCor((MouseEvent) e);
 
         if(e.getClass().equals(KeyEvent.class))
                 if(((KeyEvent) e).getKeyCode() == KeyEvent.VK_ESCAPE)

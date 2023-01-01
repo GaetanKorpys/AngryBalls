@@ -1,7 +1,7 @@
 package exodecorateur_angryballs.maladroit.Modele.Decorateur;
 
 import exodecorateur_angryballs.maladroit.Modele.Bille;
-import exodecorateur_angryballs.maladroit.Modele.DecoratorBille;
+import exodecorateur_angryballs.maladroit.Modele.DecorateurBille;
 import exodecorateur_angryballs.maladroit.Vues.BoutonChoixHurlement;
 import mesmaths.geometrie.base.Vecteur;
 import musique.SonLong;
@@ -9,7 +9,7 @@ import musique.SonLong;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-public class BilleHurlante extends DecoratorBille implements ItemListener {
+public class BilleHurlante extends DecorateurBille implements ItemListener {
 
     private static final int DELAI_MIN = 10;    /* délai minimum de rafraichissement du son. en millisecondes */
     public static final int DELAI_MAX = 150;    /* délai maximum de rafraichissement du son. en millisecondes */

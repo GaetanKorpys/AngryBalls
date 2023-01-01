@@ -9,9 +9,6 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
 
-//Bille de billard classique avec vitesse rectiligne uniforme (donc pas d'acceleration) et des rebonds sur les bords
-//C'est le composant qui va etre emballe par les decorateurs
-//Les donnees sont contenus dans cette classe pour éviter la redondance dans chaque decorateur
 public class BilleParDefaut extends Bille {
 
     public  Vecteur position;
@@ -61,9 +58,7 @@ public class BilleParDefaut extends Bille {
     public Color getCouleur(){return this.couleur;}
 
     @Override
-    public void setCouleur(Color couleur) {
-        this.couleur = couleur;
-    }
+    public void setCouleur(Color couleur) {this.couleur = couleur;}
 
     public int getClef()
     {
@@ -123,7 +118,7 @@ public class BilleParDefaut extends Bille {
     }
 
     @Override
-    public void handleMouseEvent(MouseEvent e) {
-        //Ne fait rien
+    public void sendEventToCor(MouseEvent e) {
+        //Par defaut ne fait rien
     }
 }

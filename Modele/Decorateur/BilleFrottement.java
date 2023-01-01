@@ -1,12 +1,12 @@
 package exodecorateur_angryballs.maladroit.Modele.Decorateur;
 
 import exodecorateur_angryballs.maladroit.Modele.Bille;
-import exodecorateur_angryballs.maladroit.Modele.DecoratorBille;
+import exodecorateur_angryballs.maladroit.Modele.DecorateurBille;
 import mesmaths.mecanique.MecaniquePoint;
 
 import java.util.Vector;
 
-public class BilleFrottement extends DecoratorBille {
+public class BilleFrottement extends DecorateurBille {
     public BilleFrottement(Bille bille) {
         super(bille);
     }

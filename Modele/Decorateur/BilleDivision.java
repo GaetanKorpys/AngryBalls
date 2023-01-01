@@ -2,7 +2,7 @@ package exodecorateur_angryballs.maladroit.Modele.Decorateur;
 
 import exodecorateur_angryballs.maladroit.Modele.Bille;
 import exodecorateur_angryballs.maladroit.Modele.BilleParDefaut;
-import exodecorateur_angryballs.maladroit.Modele.DecoratorBille;
+import exodecorateur_angryballs.maladroit.Modele.DecorateurBille;
 import exodecorateur_angryballs.maladroit.Modele.OutilsBille;
 import mesmaths.cinematique.Collisions;
 import mesmaths.geometrie.base.Vecteur;
@@ -10,7 +10,7 @@ import mesmaths.geometrie.base.Vecteur;
 import java.awt.*;
 import java.util.Vector;
 
-public class BilleDivision extends DecoratorBille {
+public class BilleDivision extends DecorateurBille {
     public BilleDivision(Bille bille) {
         super(bille);
     }
@@ -29,10 +29,12 @@ public class BilleDivision extends DecoratorBille {
                     billeCourante.getPosition(), billeCourante.getRayon(), billeCourante.getVitesse(), billeCourante.masse()))
             {
                 //if(billeCourante.getClass().equals(this.getClass())) {
-                    Vecteur position = billeCourante.getPosition();
-                    position.ajoute(this.getPosition());
-                    position.multiplie(0.5);
+                    Vecteur pos = billeCourante.getPosition();
+                    //On récupère le milieu des 2 billes
+                    pos.ajoute(this.getPosition());
+                    pos.multiplie(0.5);
 
+                    //Idem que billeFusion
                     Color couleur = new Color((this.getCouleur().getRed() + billeCourante.getCouleur().getRed()) / 2, (this.getCouleur().getGreen() + billeCourante.getCouleur().getGreen()) / 2, (this.getCouleur().getBlue() + billeCourante.getCouleur().getBlue()) / 2);
                     Double rayon = (billeCourante.getRayon() + cetteBille.getRayon()) / 4;
 
@@ -42,16 +44,17 @@ public class BilleDivision extends DecoratorBille {
                     }
 
 
-                    b[0] = new BilleParDefaut(position.somme(vitesse), rayon, new Vecteur(), couleur, getVueBillard());
+                    //Crétation des 4 billes
+                    b[0] = new BilleParDefaut(pos.somme(vitesse), rayon, new Vecteur(), couleur, getVueBillard());
                     b[0] = new BilleMRU(b[0], vitesse);
 
-                    b[1] = new BilleParDefaut(position.somme(vitesse.rotationQuartDeTour()), rayon, new Vecteur(), couleur, getVueBillard());
+                    b[1] = new BilleParDefaut(pos.somme(vitesse.rotationQuartDeTour()), rayon, new Vecteur(), couleur, getVueBillard());
                     b[1] = new BilleMRU(b[1], vitesse.rotationQuartDeTour());
 
-                    b[2] = new BilleParDefaut(position.somme(vitesse.rotationQuartDeTour().rotationQuartDeTour()), rayon, new Vecteur(), couleur, getVueBillard());
+                    b[2] = new BilleParDefaut(pos.somme(vitesse.rotationQuartDeTour().rotationQuartDeTour()), rayon, new Vecteur(), couleur, getVueBillard());
                     b[2] = new BilleMRU(b[2], vitesse.rotationQuartDeTour().rotationQuartDeTour());
 
-                    b[3] = new BilleParDefaut(position.somme(vitesse.rotationQuartDeTour().rotationQuartDeTour().rotationQuartDeTour()), rayon, new Vecteur(), couleur, getVueBillard());
+                    b[3] = new BilleParDefaut(pos.somme(vitesse.rotationQuartDeTour().rotationQuartDeTour().rotationQuartDeTour()), rayon, new Vecteur(), couleur, getVueBillard());
                     b[3] = new BilleMRU(b[3], vitesse.rotationQuartDeTour().rotationQuartDeTour().rotationQuartDeTour());
 
 
@@ -61,6 +64,7 @@ public class BilleDivision extends DecoratorBille {
                         if (rayon > 15)
                             b[j] = new BilleDivision(b[j]);
                         b[j] = new BilleSonCollision(b[j], this.getVueBillard().getHurlements());
+                        //On ajoute les 4 billes
                         billes.add(b[j]);
                     }
 
@@ -70,6 +74,7 @@ public class BilleDivision extends DecoratorBille {
                             index = billes.indexOf(bille);
                     }
 
+                    //On supprime les 2 billes entrés en collision
                     billes.removeElementAt(index);
                     billes.remove(billeCourante);
                     return true;

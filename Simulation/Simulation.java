@@ -1,16 +1,13 @@
 package exodecorateur_angryballs.maladroit.Simulation;
 
 import exodecorateur_angryballs.maladroit.Modele.Bille;
-import exodecorateur_angryballs.maladroit.OutilsConfigurationBilleHurlante;
 import exodecorateur_angryballs.maladroit.Vues.VueBillard;
 import mesmaths.geometrie.base.Vecteur;
 import musique.SonLong;
 
-import java.awt.*;
-import java.io.File;
 import java.util.Vector;
 
-public abstract class Mode {
+public abstract class Simulation {
     protected Vector<Bille> billes;
     protected double xMax, yMax,xMin,yMin;
     protected double vMax;
@@ -21,7 +18,7 @@ public abstract class Mode {
     protected SonLong[] hurlements;
 
 
-    public Mode(VueBillard cadre) {
+    public Simulation(VueBillard cadre) {
         billes = new Vector<Bille>();
         vMax = 0.1;
         pesanteur = new Vecteur(0, 0.001);

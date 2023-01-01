@@ -11,7 +11,7 @@ public class BoutonMixte extends Bouton{
     }
 
     @Override
-    public void action(AnimationBilles animationBilles, AWTEvent e) {
+    public void doAction(AnimationBilles animationBilles, AWTEvent e) {
         animationBilles.setMixteMode();
     }
 }

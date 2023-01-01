@@ -1,13 +1,13 @@
 package exodecorateur_angryballs.maladroit.Modele.Decorateur;
 
 import exodecorateur_angryballs.maladroit.Modele.Bille;
-import exodecorateur_angryballs.maladroit.Modele.DecoratorBille;
+import exodecorateur_angryballs.maladroit.Modele.DecorateurBille;
 import mesmaths.geometrie.base.Vecteur;
 import musique.SonLong;
 import java.util.Vector;
 
 
-public class BilleSonCollision extends DecoratorBille {
+public class BilleSonCollision extends DecorateurBille {
     private static final double COEFF_VOLUME = 6;
     private static final int DELAI_MIN = 10;    /* délai minimum de rafraichissement du son. en millisecondes */
     public static final int DELAI_MAX = 150;    /* délai maximum de rafraichissement du son. en millisecondes */

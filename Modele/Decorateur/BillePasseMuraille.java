@@ -1,10 +1,10 @@
 package exodecorateur_angryballs.maladroit.Modele.Decorateur;
 
 import exodecorateur_angryballs.maladroit.Modele.Bille;
-import exodecorateur_angryballs.maladroit.Modele.DecoratorBille;
+import exodecorateur_angryballs.maladroit.Modele.DecorateurBille;
 import mesmaths.cinematique.Collisions;
 
-public class BillePasseMuraille extends DecoratorBille {
+public class BillePasseMuraille extends DecorateurBille {
 
     public BillePasseMuraille(Bille bille) {
         super(bille);

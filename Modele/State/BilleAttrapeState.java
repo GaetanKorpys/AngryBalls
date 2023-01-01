@@ -1,7 +1,7 @@
 package exodecorateur_angryballs.maladroit.Modele.State;
 
 import exodecorateur_angryballs.maladroit.Modele.Bille;
-import exodecorateur_angryballs.maladroit.Modele.COR.MouseEventReleased;
+import exodecorateur_angryballs.maladroit.Modele.COR.ExpertEventReleased;
 import exodecorateur_angryballs.maladroit.Modele.Decorateur.BillePilote;
 import mesmaths.geometrie.base.Vecteur;
 import mesmaths.mecanique.MecaniquePoint;
@@ -10,14 +10,18 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
 
-public class CaughtController extends ControllerOK {
+public class BilleAttrapeState extends State {
 
-
-    public CaughtController(BillePilote bille, ControllerOK next, ControllerOK previous) {
-        super(bille, next, previous);
-        this.expert = new MouseEventReleased(this.expert, bille);
+    private Double calculate(Double base, Double n) {
+        return Math.pow(Math.E, Math.log(base)/n);
     }
 
+    public BilleAttrapeState(BillePilote bille, State next, State previous) {
+        super(bille, next, previous);
+        this.expert = new ExpertEventReleased(this.expert, bille);
+    }
+
+    //Pour dessiner la bille blanche lorsqu'une bille est pilotée
     @Override
     public void dessine(Bille g, Graphics x) {
         int width, height;
@@ -29,22 +33,21 @@ public class CaughtController extends ControllerOK {
         x.fillOval(xMin, yMin, width, height);
 
     }
-    public Double calculate(Double base, Double n) {
-        return Math.pow(Math.E, Math.log(base)/n);
-    }
 
+    //On gère la bille en fonction du mouvement de la souris
     @Override
     public void gestionAccélération(Bille g, Vector<Bille> billes, MouseEvent e) {
 
+        //On vérifie que le curseur de la souris est bien sur la position de la bille
         if(g.pointIsInsideBille(new Vecteur(e.getX(), e.getY()))){
             g.getAccélération().ajoute(MecaniquePoint.freinageFrottement(g.masse()*0.1 , g.getVitesse().produit(g.masse()/10000)));
         }else {
-            Vecteur position = g.getPosition();
-            Vecteur actuel = new Vecteur(e.getX(), e.getY());
-            Vecteur direction = actuel.difference(position);
+            double reducteur = 5;
+            Vecteur pos = g.getPosition();
+            Vecteur sourisPos = new Vecteur(e.getX(), e.getY());
+            Vecteur direction = sourisPos.difference(pos);
             direction = direction.produit(0.0001);
             direction = direction.produit(10.0);
-            double reducteur = 5;
             if (direction.x < 0) {
                 direction.x = -calculate(-direction.x, reducteur);
             } else {

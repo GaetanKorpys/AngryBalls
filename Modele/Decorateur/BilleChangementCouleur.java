@@ -1,12 +1,12 @@
 package exodecorateur_angryballs.maladroit.Modele.Decorateur;
 
 import exodecorateur_angryballs.maladroit.Modele.Bille;
-import exodecorateur_angryballs.maladroit.Modele.DecoratorBille;
+import exodecorateur_angryballs.maladroit.Modele.DecorateurBille;
 
 import java.awt.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class BilleChangementCouleur extends DecoratorBille {
+public class BilleChangementCouleur extends DecorateurBille {
     public BilleChangementCouleur(Bille bille) {
         super(bille);
     }

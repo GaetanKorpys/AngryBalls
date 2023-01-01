@@ -2,17 +2,15 @@ package exodecorateur_angryballs.maladroit.Modele.Decorateur;
 
 import exodecorateur_angryballs.maladroit.Modele.Bille;
 import exodecorateur_angryballs.maladroit.Modele.BilleParDefaut;
-import exodecorateur_angryballs.maladroit.Modele.DecoratorBille;
+import exodecorateur_angryballs.maladroit.Modele.DecorateurBille;
 import exodecorateur_angryballs.maladroit.Modele.OutilsBille;
 import mesmaths.cinematique.Collisions;
 import mesmaths.geometrie.base.Vecteur;
 
 import java.awt.*;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.util.Vector;
 
-public class BilleFusion extends DecoratorBille {
+public class BilleFusion extends DecorateurBille {
 
 
     public BilleFusion(Bille bille) {
@@ -32,12 +30,17 @@ public class BilleFusion extends DecoratorBille {
                 billeCourante.getPosition(), billeCourante.getRayon(), billeCourante.getVitesse(), billeCourante.masse()))
             {
                 //if(billeCourante.getClass().equals(this.getClass())) {
-                    Vecteur position = billeCourante.getPosition();
-                    position.ajoute(this.getPosition());
-                    position.multiplie(0.5);
+                    Vecteur pos = billeCourante.getPosition();
+                    //On récupère le milieu des 2 billes
+                    pos.ajoute(this.getPosition());
+                    pos.multiplie(0.5);
+
+                    //On modifie la couleur r,g,b de la nouvelle bille
                     Color couleur = new Color((this.getCouleur().getRed() + billeCourante.getCouleur().getRed()) / 2, (this.getCouleur().getGreen() + billeCourante.getCouleur().getGreen()) / 2, (this.getCouleur().getBlue() + billeCourante.getCouleur().getBlue()) / 2);
-                    Double rayon = Math.sqrt(((3.14 * billeCourante.getRayon() * billeCourante.getRayon()) + (3.14 * this.getRayon() * this.getRayon())) / 3.14);
-                    Bille billeFusion = new BilleParDefaut(position, rayon, new Vecteur(), couleur, getVueBillard());
+                    Double rayon = (billeCourante.getRayon() + this.getRayon()/2);
+
+
+                    Bille billeFusion = new BilleParDefaut(pos, rayon, new Vecteur(), couleur, getVueBillard());
                     billeFusion = new BilleMRU(billeFusion, this.getVitesse().somme(billeCourante.getVitesse()).produit(0.5));
                     billeFusion = new BilleRebond(billeFusion);
                     billeFusion = new BillePilote(billeFusion);
@@ -51,8 +54,11 @@ public class BilleFusion extends DecoratorBille {
                             index = billes.indexOf(bille);
                     }
 
+                    //On supprime les 2 billes entrés en collision
                     billes.removeElementAt(index);
                     billes.remove(billeCourante);
+
+                    //On ajoute la nouvelle bille décorée
                     billes.add(billeFusion);
 
                     return true;

@@ -9,9 +9,9 @@ import mesmaths.geometrie.base.Vecteur;
 import java.awt.*;
 import java.awt.event.ItemListener;
 
-public class ParDefautMode extends Mode{
+public class ParDefautSimulation extends Simulation {
 
-    public ParDefautMode(VueBillard cadre){super(cadre);}
+    public ParDefautSimulation(VueBillard cadre){super(cadre);}
 
     @Override
     protected void preparerBilles() {

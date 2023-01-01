@@ -2,11 +2,13 @@ package exodecorateur_angryballs.maladroit.Observeur.Souscripteur;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Vector;
 
 import exodecorateur_angryballs.maladroit.AnimationBilles;
-import exodecorateur_angryballs.maladroit.Ecouteur.Ecoutable;
+import exodecorateur_angryballs.maladroit.Ecouteur.DoAction;
 import exodecorateur_angryballs.maladroit.Observeur.Diffuseur.Bouton.*;
 import exodecorateur_angryballs.maladroit.OutilsConfigurationBilleHurlante;
 import exodecorateur_angryballs.maladroit.Observeur.Diffuseur.Billard;
@@ -113,13 +115,14 @@ public class CadreAngryBalls extends Frame implements VueBillard, Souscripteur
     }
 
 
-    public CadreAngryBalls(String titre) throws HeadlessException
+    public CadreAngryBalls() throws HeadlessException
     {
-        super(titre);
+        super();
 
         configurationSon();
         choixHurlementInitial = 0;
 
+        //Pour l'active rendering
         this.setIgnoreRepaint(true);
         this.setUndecorated(true);
 
@@ -184,7 +187,7 @@ public class CadreAngryBalls extends Frame implements VueBillard, Souscripteur
     public void setAnimationBilles (AnimationBilles animationBilles){this.animationBilles = animationBilles;}
 
     @Override
-    public void update(Ecoutable ecoutable, AWTEvent e) {
-        ecoutable.action(animationBilles, e);
+    public void update(DoAction ecoutable, AWTEvent e) {
+        ecoutable.doAction(animationBilles, e);
     }
 }

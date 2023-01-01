@@ -3,7 +3,6 @@ package exodecorateur_angryballs.maladroit.Observeur.Diffuseur.Bouton;
 import exodecorateur_angryballs.maladroit.AnimationBilles;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
 public class BoutonQuitter extends Bouton{
 
@@ -12,7 +11,7 @@ public class BoutonQuitter extends Bouton{
     }
 
     @Override
-    public void action(AnimationBilles animationBilles, AWTEvent e) {
+    public void doAction(AnimationBilles animationBilles, AWTEvent e) {
         animationBilles.quitter();
     }
 }

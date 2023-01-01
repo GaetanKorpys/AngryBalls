@@ -1,17 +1,15 @@
 package exodecorateur_angryballs.maladroit.Observeur.Diffuseur.Bouton;
 
 import exodecorateur_angryballs.maladroit.AnimationBilles;
-import exodecorateur_angryballs.maladroit.Ecouteur.Ecoutable;
+import exodecorateur_angryballs.maladroit.Ecouteur.DoAction;
 import exodecorateur_angryballs.maladroit.Ecouteur.EcouteurBouton;
 import exodecorateur_angryballs.maladroit.Observeur.Diffuseur.Diffuseur;
 import exodecorateur_angryballs.maladroit.Observeur.Souscripteur.Souscripteur;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Vector;
 
-public abstract class Bouton extends Button implements Diffuseur, Ecoutable {
+public abstract class Bouton extends Button implements Diffuseur, DoAction {
 
     private Vector<Souscripteur> souscripteurs;
 

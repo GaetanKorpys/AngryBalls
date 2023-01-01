@@ -1,17 +1,13 @@
 package exodecorateur_angryballs.maladroit;
 
+import java.awt.*;
+import java.util.Random;
 import java.util.Vector;
 
 import exodecorateur_angryballs.maladroit.Modele.Bille;
 import exodecorateur_angryballs.maladroit.Simulation.*;
 import exodecorateur_angryballs.maladroit.Vues.VueBillard;
 
-/**
- * responsable de l'animation des billes, c-à-d responsable du mouvement de la liste des billes. met perpétuellement à jour les billes. 
- * gère le délai entre 2 mises à jour (deltaT) et prévient la vue responsable du dessin des billes qu'il faut mettre à jour la scène
- * 
- * ICI : IL N'Y A RIEN A CHANGER
- * */
 public class AnimationBilles  implements Runnable
 {
 
@@ -20,26 +16,31 @@ public class AnimationBilles  implements Runnable
     VueBillard cadre;
     private Thread thread;
     public static boolean running;
-    private Mode mode;
+    private Simulation simulation;
+
+    // Objects needed for rendering...
+    Graphics graphics = null;
+    Graphics2D g2d = null;
+    Color background = Color.BLACK;
+    Random rand = new Random();
+
+    // Variables for counting frames per seconds
+    int fps = 0;
+    int frames = 0;
+    long totalTime = 0;
+    long curTime = System.currentTimeMillis();
+    long lastTime = curTime;
+
 
     private void initializedBilles()
     {
         this.arrêterAnimation();
         //On indique au billard les billes présentes selon le mode
-        this.mode.genererBilles(cadre);
-        this.billes = mode.getBilles();
+        this.simulation.genererBilles(cadre);
+        this.billes = simulation.getBilles();
         this.cadre.getBillard().setBilles(billes);
 
         cadre.miseAJour();
-    }
-
-    public AnimationBilles(Vector<Bille> billes, VueBillard cadre)
-    {
-        this.billes = billes;
-        this.cadre = cadre;
-        this.thread = null;
-        running = true;
-        this.cadre.setAnimationBilles(this);
     }
 
     public AnimationBilles(VueBillard cadre)
@@ -54,25 +55,25 @@ public class AnimationBilles  implements Runnable
     }
 
     public void setPresentationSujetMode() {
-        mode = new ParDefautMode(cadre);
+        simulation = new ParDefautSimulation(cadre);
         initializedBilles();
         cadre.getCadre().présentation.setText("\tPrésentation des billes demandées dans le sujet avec un son stéréo lors des collisions. | Bille orange = bille pilotée.");
     }
 
     public void setFusionMode() {
-        mode = new FusionMode(cadre);
+        simulation = new FusionSimulation(cadre);
         initializedBilles();
         cadre.getCadre().présentation.setText("\tLes billes fusionnent en 1 unique bille plus large lors d'une collision. | Toutes pilotables.");
     }
 
     public void setDivisionMode() {
-        mode = new DivisionMode(cadre);
+        simulation = new DivisionSimulation(cadre);
         initializedBilles();
         cadre.getCadre().présentation.setText("\tLes billes se divisent en 4 billes plus petites lors d'une collision. | Toutes pilotables.");
     }
 
     public void setMixteMode() {
-        mode = new MixteMode(cadre);
+        simulation = new MixteSimulation(cadre);
         initializedBilles();
         cadre.getCadre().présentation.setText("\tBilles roses = fantomes. | Billes noirs = couleur modifiable. | Billes rouges = son collision. | Toutes pilotables.");
     }
@@ -88,6 +89,7 @@ public class AnimationBilles  implements Runnable
         {
             double deltaT;
             Bille billeCourante;
+
             while (running)
             {
                 deltaT = 10;
@@ -111,7 +113,7 @@ public class AnimationBilles  implements Runnable
 
         catch (InterruptedException e)
         {
-            //System.out.println("\Arret du thread");
+            //System.out.println("\nArret du thread");
         }
     }
 

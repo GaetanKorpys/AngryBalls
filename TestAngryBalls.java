@@ -2,6 +2,8 @@ package exodecorateur_angryballs.maladroit;
 
 import java.awt.*;
 import java.awt.GraphicsDevice;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
 import exodecorateur_angryballs.maladroit.Observeur.Souscripteur.CadreAngryBalls;
 
@@ -18,6 +20,8 @@ public class TestAngryBalls
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice myDevice = ge.getDefaultScreenDevice();
         GraphicsConfiguration gc = myDevice.getDefaultConfiguration();
+
+        cadre.setGraphics(myDevice);
 
         //Get old display
         oldDisplayMode = myDevice.getDisplayMode();
@@ -40,14 +44,12 @@ public class TestAngryBalls
                 e.printStackTrace();
                 myDevice.setFullScreenWindow(null);
             }
-
-        cadre.setGraphics(myDevice);
     }
 
     public static void main(String[] args)
     {
 
-        CadreAngryBalls cadre = new CadreAngryBalls("Angry balls Gaetan Korpys");
+        CadreAngryBalls cadre = new CadreAngryBalls();
         cadre.montrer();
 
         AnimationBilles animationBilles = new AnimationBilles(cadre);

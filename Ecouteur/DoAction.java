@@ -3,10 +3,9 @@ package exodecorateur_angryballs.maladroit.Ecouteur;
 import exodecorateur_angryballs.maladroit.AnimationBilles;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
 
-public interface Ecoutable {
+public interface DoAction {
 
-    void action(AnimationBilles animationBilles, AWTEvent e);
+    void doAction(AnimationBilles animationBilles, AWTEvent e);
 
 }

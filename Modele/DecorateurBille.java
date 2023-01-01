@@ -7,11 +7,11 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
 
-public abstract class DecoratorBille extends Bille {
+public abstract class DecorateurBille extends Bille {
 
     protected Bille _decoredBille;
 
-    public DecoratorBille(Bille bille) {
+    public DecorateurBille(Bille bille) {
         _decoredBille = bille;
     }
 
@@ -93,7 +93,7 @@ public abstract class DecoratorBille extends Bille {
     }
 
     @Override
-    public void handleMouseEvent(MouseEvent e) {
-        _decoredBille.handleMouseEvent(e);
+    public void sendEventToCor(MouseEvent e) {
+        _decoredBille.sendEventToCor(e);
     }
 }

@@ -15,6 +15,7 @@ public class EcouteurKey extends Ecouteur implements KeyListener {
         //this.getDiffuseur().notifySouscripteurs(e);
     }
 
+    //Quand une touche est préssée, on informe les souscripteurs du diffuseur
     @Override
     public void keyPressed(KeyEvent e) {
         this.getDiffuseur().notifySouscripteurs(e);
