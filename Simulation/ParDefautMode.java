@@ -8,8 +8,6 @@ import mesmaths.geometrie.base.Vecteur;
 
 import java.awt.*;
 import java.awt.event.ItemListener;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 
 public class ParDefautMode extends Mode{
 
@@ -18,8 +16,6 @@ public class ParDefautMode extends Mode{
     @Override
     protected void preparerBilles() {
 
-
-        //this.rayon =  0.05*Math.min(xMax, yMax);
         int choixHurlementInitial = 0;
 
         Bille HurlanteNewtonArret, NewtonFrottementRebond, PesanteurFrottementRebond, MRURebond, MRUPasseMuraille, PiloteFrottementArret;
@@ -79,8 +75,6 @@ public class ParDefautMode extends Mode{
         billes.add(MRUPasseMuraille);
         billes.add(PiloteFrottementArret);
 
-        //cadre.getBillard().addMouseListener((MouseListener) PiloteFrottementArret);
-        //cadre.getBillard().addMouseMotionListener((MouseMotionListener) PiloteFrottementArret);
         cadre.addChoixHurlementListener((ItemListener) HurlanteNewtonArret);
     }
 }

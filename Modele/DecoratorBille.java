@@ -50,6 +50,9 @@ public abstract class DecoratorBille extends Bille {
     public Color getCouleur() {return _decoredBille.getCouleur();}
 
     @Override
+    public void setCouleur(Color couleur) {_decoredBille.setCouleur(couleur);}
+
+    @Override
     public int getClef() {
         return _decoredBille.getClef();
     }

@@ -42,8 +42,7 @@ public class TestAngryBalls
                 /*if(myDevice.isDisplayChangeSupported())
                     myDevice.setDisplayMode(newDisplayMode);*/
             } catch (Exception e) {
-                System.out.println("\nErreur");
-                //e.printStackTrace();
+                e.printStackTrace();
                 myDevice.setFullScreenWindow(null);
             }
 
@@ -53,33 +52,13 @@ public class TestAngryBalls
     public static void main(String[] args)
     {
 
-        CadreAngryBalls cadre = new CadreAngryBalls("Angry balls Gaetan Korpys", "Animation de billes ayant des comportements différents. Situation idéale pour mettre en place le DP Decorator");
+        CadreAngryBalls cadre = new CadreAngryBalls("Angry balls Gaetan Korpys");
         cadre.montrer();
 
         AnimationBilles animationBilles = new AnimationBilles(cadre);
 
-        configurationDisplay(cadre);
-
-        //----------------------- mise en place des écouteurs de boutons qui permettent de contrôler (un peu...) l'application -----------------
-
-        /*
-        EcouteurBoutonLancer ecouteurBoutonLancer = new EcouteurBoutonLancer(animationBilles);
-        EcouteurBoutonArreter ecouteurBoutonArrêter = new EcouteurBoutonArreter(animationBilles);
-        EcouteurBoutonQuitter ecouteurBoutonQuitter = new EcouteurBoutonQuitter(animationBilles);
-        EcouteurBoutonFusion ecouteurBoutonFusion = new EcouteurBoutonFusion(animationBilles);
-        EcouteurBoutonDivision ecouteurBoutonDivision = new EcouteurBoutonDivision(animationBilles);
-        EcouteurBoutonReset ecouteurBoutonReset = new EcouteurBoutonReset(animationBilles);
-        EcouteurBoutonParDefaut ecouteurBoutonParDefaut = new EcouteurBoutonParDefaut(animationBilles);
-
-
-        //------------------------- activation des écouteurs des boutons et ça tourne tout seul ------------------------------
-
-        cadre.lancerBilles.addActionListener(ecouteurBoutonLancer);
-        cadre.arrêterBilles.addActionListener(ecouteurBoutonArrêter);
-        cadre.quitter.addActionListener(ecouteurBoutonQuitter);
-        cadre.fusion.addActionListener(ecouteurBoutonFusion);
-        cadre.division.addActionListener(ecouteurBoutonDivision);
-        cadre.reset.addActionListener(ecouteurBoutonReset);
-        cadre.parDefaut.addActionListener(ecouteurBoutonParDefaut);*/
+        //Le mode plein écran augmente les performances pour afficher les billes
+        //A commenter pour passer en mode fenetré
+        //configurationDisplay(cadre);
     }
 }

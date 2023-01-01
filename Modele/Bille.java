@@ -38,6 +38,8 @@ public abstract class Bille
 
     public abstract Color getCouleur();
 
+    public abstract void setCouleur(Color couleur);
+
     public abstract int getClef();
 
     public abstract double masse();

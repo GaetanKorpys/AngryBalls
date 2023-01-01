@@ -13,11 +13,13 @@ public class BilleMRU extends DecoratorBille {
     public BilleMRU(Bille bille, Vecteur vitesse) {
         super(bille);
         this.vitesse=vitesse;
+        _decoredBille.setVitesse(vitesse);
     }
 
+    /*
     @Override
     public void gestionAccélération(Vector<Bille> billes) {
         _decoredBille.gestionAccélération(billes);
         _decoredBille.setVitesse(this.vitesse);
-    }
+    }*/
 }

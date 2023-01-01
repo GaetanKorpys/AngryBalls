@@ -22,7 +22,6 @@ public class FusionMode extends Mode{
     protected void preparerBilles() {
         Bille[] tabBilles = new Bille[11];
 
-        //this.rayon = 19;
         int r,g,b;
 
         for (int i = 0; i < 11; i++) {
@@ -33,13 +32,11 @@ public class FusionMode extends Mode{
             Color color = new Color(r,g,b);
             tabBilles[i] = new BilleParDefaut(Vecteur.créationAléatoire(0, 0, xMax, yMax), rayon, new Vecteur(), color, cadre);
             tabBilles[i] = new BilleRebond(tabBilles[i]);
-            tabBilles[i] = new BilleSonCollision(tabBilles[i], hurlements);
             tabBilles[i] = new BillePilote(tabBilles[i]);
             tabBilles[i] = new BilleFusion(tabBilles[i]);
+            tabBilles[i] = new BilleSonCollision(tabBilles[i], hurlements);
 
             billes.add(tabBilles[i]);
-            //cadre.getBillard().addMouseListener((MouseListener) tabBilles[i]);
-            //cadre.getBillard().addMouseMotionListener((MouseMotionListener) tabBilles[i]);
         }
     }
 }

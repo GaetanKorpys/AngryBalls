@@ -3,6 +3,7 @@ package exodecorateur_angryballs.maladroit.Vues;
 
 import exodecorateur_angryballs.maladroit.AnimationBilles;
 import exodecorateur_angryballs.maladroit.Observeur.Diffuseur.Billard;
+import exodecorateur_angryballs.maladroit.Observeur.Souscripteur.CadreAngryBalls;
 import musique.SonLong;
 
 import java.awt.*;
@@ -24,6 +25,8 @@ public interface VueBillard
     public void setAnimationBilles (AnimationBilles animationBilles);
 
     public Billard getBillard();
+
+    public CadreAngryBalls getCadre();
 
     public void addChoixHurlementListener(ItemListener écouteurChoixHurlant);
 

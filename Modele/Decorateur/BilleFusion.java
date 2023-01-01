@@ -25,14 +25,13 @@ public class BilleFusion extends DecoratorBille {
         Vector<Bille> autresBilles = OutilsBille.autresBilles(cetteBille, billes);
         Bille billeCourante;
 
-
         int i;
         for (i = 0; i < autresBilles.size(); ++i) {
             billeCourante = autresBilles.get(i);
             if (Collisions.CollisionBilleBille(cetteBille.getPosition(), cetteBille.getRayon(), cetteBille.getVitesse(), cetteBille.masse(),
                 billeCourante.getPosition(), billeCourante.getRayon(), billeCourante.getVitesse(), billeCourante.masse()))
             {
-                if(billeCourante.getClass().equals(this.getClass())) {
+                //if(billeCourante.getClass().equals(this.getClass())) {
                     Vecteur position = billeCourante.getPosition();
                     position.ajoute(this.getPosition());
                     position.multiplie(0.5);
@@ -41,15 +40,23 @@ public class BilleFusion extends DecoratorBille {
                     Bille billeFusion = new BilleParDefaut(position, rayon, new Vecteur(), couleur, getVueBillard());
                     billeFusion = new BilleMRU(billeFusion, this.getVitesse().somme(billeCourante.getVitesse()).produit(0.5));
                     billeFusion = new BilleRebond(billeFusion);
-                    billeFusion = new BilleSonCollision(billeFusion, this.getVueBillard().getHurlements());
                     billeFusion = new BillePilote(billeFusion);
                     billeFusion = new BilleFusion(billeFusion);
+                    billeFusion = new BilleSonCollision(billeFusion, this.getVueBillard().getHurlements());
+
+
+                    int index = 0;
+                    for (Bille bille:billes) {
+                        if(bille.getClef() == this.getClef())
+                            index = billes.indexOf(bille);
+                    }
+
+                    billes.removeElementAt(index);
                     billes.remove(billeCourante);
-                    billes.remove(this);
                     billes.add(billeFusion);
 
                     return true;
-                }
+                //}
             }
         }
         return false;

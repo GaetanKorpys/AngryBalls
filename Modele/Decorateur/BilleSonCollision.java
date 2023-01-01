@@ -25,7 +25,7 @@ public class BilleSonCollision extends DecoratorBille {
         boolean res = _decoredBille.gestionCollisionBilleBille(billes);
 
         if(res)
-            playSon(this, tabSonLong[3]);
+            playSon(this, tabSonLong[1]);
         return res;
     }
 
@@ -38,25 +38,6 @@ public class BilleSonCollision extends DecoratorBille {
         return res;
     }
 
-    /*
-    public void playSonBille(Bille bille, Vector<Bille>billes)
-    {
-        if(bille.gestionCollisionBilleBille(billes))
-        {
-            playSon(bille, hurlements[0]);
-            System.out.println("\nBILLE");
-        }
-    }
-
-    public void playSonContour(Bille bille)
-    {
-        if(bille.collisionContour(0,0, bille.getVueBillard().largeurBillard(), bille.getVueBillard().hauteurBillard()))
-        {
-            playSon(bille, hurlements[1]);
-            System.out.println("\nCONTOUR");
-        }
-    }
-    */
     public void playSon(Bille bille, SonLong sonLong)
     {
         Vecteur p = bille.getPosition();
@@ -72,7 +53,6 @@ public class BilleSonCollision extends DecoratorBille {
         double x1 = p.x/xMax;
         double balance = 2*x1 - 1;
 
-        //sonLong.joue(0, volume, balance, coeffPitch);
 
         int délai = (int)(DELAI_MIN*volume + DELAI_MAX*y);
         long instant = System.currentTimeMillis();

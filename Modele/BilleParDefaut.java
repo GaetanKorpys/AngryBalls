@@ -60,6 +60,11 @@ public class BilleParDefaut extends Bille {
 
     public Color getCouleur(){return this.couleur;}
 
+    @Override
+    public void setCouleur(Color couleur) {
+        this.couleur = couleur;
+    }
+
     public int getClef()
     {
         return this.clef;

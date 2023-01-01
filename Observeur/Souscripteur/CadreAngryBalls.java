@@ -27,9 +27,9 @@ import outilsvues.Outils;
  * */
 public class CadreAngryBalls extends Frame implements VueBillard, Souscripteur
 {
-    TextField présentation;
+    public TextField présentation;
     Billard billard;
-    Bouton lancerBilles, arrêterBilles, quitter, fusion, division, reset, parDefaut;
+    Bouton lancerBilles, arrêterBilles, quitter, fusion, division, reset, parDefaut, mixte;
     Panel haut, centre, bas, ligneBoutonsLancerArrêt;
     PanneauChoixHurlement ligneBoutonsChoixHurlement;
     EcouteurTerminaison ecouteurTerminaison;
@@ -54,7 +54,7 @@ public class CadreAngryBalls extends Frame implements VueBillard, Souscripteur
         hurlements = SonLong.toTableau(sonsLongs);
     }
 
-    private void construtionCadre(String message, SonLong [] hurlements, int choixHurlementInitial)
+    private void construtionCadre(SonLong [] hurlements, int choixHurlementInitial)
     {
         int nombreLignes = 2, nombreColonnes = 1;
 
@@ -67,7 +67,8 @@ public class CadreAngryBalls extends Frame implements VueBillard, Souscripteur
         this.bas = new Panel(); this.bas.setBackground(Color.LIGHT_GRAY);
         this.add(this.bas,BorderLayout.SOUTH);
 
-        this.présentation = new TextField(message, 100); this.présentation.setEditable(false);
+        this.présentation = new TextField(100);
+        this.présentation.setEditable(false);
         this.haut.add(this.présentation);
 
         this.bas.setLayout(new GridLayout(nombreLignes, nombreColonnes));
@@ -95,6 +96,10 @@ public class CadreAngryBalls extends Frame implements VueBillard, Souscripteur
         this.division.addSouscripteur(this);
         this.ligneBoutonsLancerArrêt.add(this.division);
 
+        this.mixte = new BoutonMixte("Mode mixte",animationBilles);
+        this.mixte.addSouscripteur(this);
+        this.ligneBoutonsLancerArrêt.add(this.mixte);
+
         this.reset = new BoutonReset("Reset simulation",animationBilles);
         this.reset.addSouscripteur(this);
         this.ligneBoutonsLancerArrêt.add(this.reset);
@@ -108,7 +113,7 @@ public class CadreAngryBalls extends Frame implements VueBillard, Souscripteur
     }
 
 
-    public CadreAngryBalls(String titre, String message) throws HeadlessException
+    public CadreAngryBalls(String titre) throws HeadlessException
     {
         super(titre);
 
@@ -121,7 +126,7 @@ public class CadreAngryBalls extends Frame implements VueBillard, Souscripteur
         Outils.place(this, 0.33, 0.33, 0.5, 0.5);
         ecouteurTerminaison = new EcouteurTerminaison(this);
 
-        construtionCadre(message, hurlements, choixHurlementInitial);
+        construtionCadre( hurlements, choixHurlementInitial);
 
         billard = new Billard();
         billard.addSouscripteur(this);
@@ -143,6 +148,10 @@ public class CadreAngryBalls extends Frame implements VueBillard, Souscripteur
     public Billard getBillard() {
         return billard;
     }
+
+    @Override
+    public CadreAngryBalls getCadre() {return this;}
+
 
     @Override
     public SonLong[] getHurlements() {return hurlements;}

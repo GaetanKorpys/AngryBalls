@@ -3,10 +3,7 @@ package exodecorateur_angryballs.maladroit;
 import java.util.Vector;
 
 import exodecorateur_angryballs.maladroit.Modele.Bille;
-import exodecorateur_angryballs.maladroit.Simulation.DivisionMode;
-import exodecorateur_angryballs.maladroit.Simulation.FusionMode;
-import exodecorateur_angryballs.maladroit.Simulation.Mode;
-import exodecorateur_angryballs.maladroit.Simulation.ParDefautMode;
+import exodecorateur_angryballs.maladroit.Simulation.*;
 import exodecorateur_angryballs.maladroit.Vues.VueBillard;
 
 /**
@@ -59,16 +56,29 @@ public class AnimationBilles  implements Runnable
     public void setPresentationSujetMode() {
         mode = new ParDefautMode(cadre);
         initializedBilles();
+        cadre.getCadre().présentation.setText("\tPrésentation des billes demandées dans le sujet avec un son stéréo lors des collisions. | Bille orange = bille pilotée.");
     }
 
     public void setFusionMode() {
         mode = new FusionMode(cadre);
         initializedBilles();
+        cadre.getCadre().présentation.setText("\tLes billes fusionnent en 1 unique bille plus large lors d'une collision. | Toutes pilotables.");
     }
 
     public void setDivisionMode() {
         mode = new DivisionMode(cadre);
         initializedBilles();
+        cadre.getCadre().présentation.setText("\tLes billes se divisent en 4 billes plus petites lors d'une collision. | Toutes pilotables.");
+    }
+
+    public void setMixteMode() {
+        mode = new MixteMode(cadre);
+        initializedBilles();
+        cadre.getCadre().présentation.setText("\tBilles roses = fantomes. | Billes noirs = couleur modifiable. | Billes rouges = son collision. | Toutes pilotables.");
+    }
+
+    public void resetSimulation() {
+        this.initializedBilles();
     }
 
     @Override
@@ -149,12 +159,12 @@ public class AnimationBilles  implements Runnable
     }
 
     public void quitter() {
-        running = false;
-        cadre.getGraphicsDevice().setFullScreenWindow(null);
-        System.exit(0);
+        try {
+            running = false;
+            cadre.getGraphicsDevice().setFullScreenWindow(null);
+        } finally {
+            System.exit(0);
+        }
     }
 
-    public void resetSimulation() {
-        this.initializedBilles();
-    }
 }

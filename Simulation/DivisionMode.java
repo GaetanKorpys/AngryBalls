@@ -19,7 +19,6 @@ public class DivisionMode extends Mode{
     protected void preparerBilles() {
         Bille[] tabBilles = new Bille[11];
 
-        //this.rayon = 19;
         int r,g,b;
 
         for (int i = 0; i < 11; i++) {
@@ -35,8 +34,6 @@ public class DivisionMode extends Mode{
             tabBilles[i] = new BilleDivision(tabBilles[i]);
 
             billes.add(tabBilles[i]);
-            //cadre.getBillard().addMouseListener((MouseListener) tabBilles[i]);
-            //cadre.getBillard().addMouseMotionListener((MouseMotionListener) tabBilles[i]);
         }
     }
 }

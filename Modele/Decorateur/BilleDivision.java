@@ -54,7 +54,9 @@ public class BilleDivision extends DecoratorBille {
                     b[3] = new BilleParDefaut(position.somme(vitesse.rotationQuartDeTour().rotationQuartDeTour().rotationQuartDeTour()), rayon, new Vecteur(), couleur, getVueBillard());
                     b[3] = new BilleMRU(b[3], vitesse.rotationQuartDeTour().rotationQuartDeTour().rotationQuartDeTour());
 
+
                     for (int j = 0; j < 4; j++) {
+                        b[j] = new BilleRebond(b[j]);
                         if (rayon > 15)
                             b[j] = new BilleDivision(b[j]);
                         b[j] = new BilleRebond(b[j]);
@@ -62,9 +64,14 @@ public class BilleDivision extends DecoratorBille {
                         billes.add(b[j]);
                     }
 
-                    billes.remove(billeCourante);
-                    billes.remove(this);
+                    int index = 0;
+                    for (Bille bille:billes) {
+                        if(bille.getClef() == this.getClef())
+                            index = billes.indexOf(bille);
+                    }
 
+                    billes.removeElementAt(index);
+                    billes.remove(billeCourante);
                     return true;
                 }
             }
