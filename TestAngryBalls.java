@@ -6,11 +6,6 @@ import java.awt.GraphicsDevice;
 import exodecorateur_angryballs.maladroit.Observeur.Souscripteur.CadreAngryBalls;
 
 
-/**
- * Gestion d'une liste de billes en mouvement ayant toutes un comportement différent
- * 
- * Idéal pour mettre en place le DP decorator
- * */
 public class TestAngryBalls
 {
 
@@ -59,6 +54,6 @@ public class TestAngryBalls
 
         //Le mode plein écran augmente les performances pour afficher les billes
         //A commenter pour passer en mode fenetré
-        //configurationDisplay(cadre);
+        configurationDisplay(cadre);
     }
 }

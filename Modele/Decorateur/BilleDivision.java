@@ -28,7 +28,7 @@ public class BilleDivision extends DecoratorBille {
             if (Collisions.CollisionBilleBille(cetteBille.getPosition(), cetteBille.getRayon(), cetteBille.getVitesse(), cetteBille.masse(),
                     billeCourante.getPosition(), billeCourante.getRayon(), billeCourante.getVitesse(), billeCourante.masse()))
             {
-                if(billeCourante.getClass().equals(this.getClass())) {
+                //if(billeCourante.getClass().equals(this.getClass())) {
                     Vecteur position = billeCourante.getPosition();
                     position.ajoute(this.getPosition());
                     position.multiplie(0.5);
@@ -57,9 +57,9 @@ public class BilleDivision extends DecoratorBille {
 
                     for (int j = 0; j < 4; j++) {
                         b[j] = new BilleRebond(b[j]);
+                        b[j] = new BillePilote(b[j]);
                         if (rayon > 15)
                             b[j] = new BilleDivision(b[j]);
-                        b[j] = new BilleRebond(b[j]);
                         b[j] = new BilleSonCollision(b[j], this.getVueBillard().getHurlements());
                         billes.add(b[j]);
                     }
@@ -73,7 +73,7 @@ public class BilleDivision extends DecoratorBille {
                     billes.removeElementAt(index);
                     billes.remove(billeCourante);
                     return true;
-                }
+                //}
             }
         }
         return false;
